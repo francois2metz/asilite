@@ -1,0 +1,7 @@
+<article>
+  <h1><%= @article["title"] %></h1>
+  <h2><%= @article["subtitle"] %></h2>
+
+  <p><strong><%= @article["lead"] %></strong></p>
+  <%= raw @article["content"] %>
+</article>

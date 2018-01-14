@@ -1,0 +1,3 @@
+#!/bin/sh
+
+docker run --rm --volume $(pwd):/code --publish 4000:4000 --workdir /code bitwalker/alpine-elixir-phoenix mix phx.server
