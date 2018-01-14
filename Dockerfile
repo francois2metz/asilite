@@ -6,8 +6,16 @@ EXPOSE 4000
 COPY mix.exs mix.lock ./
 RUN mix do deps.get, deps.compile
 
+COPY assets/package.json assets/
+RUN cd assets && \
+    npm install
+
 COPY . .
-RUN mix do compile, phx.digest
+
+RUN cd assets/ && \
+    npm run deploy && \
+    cd - && \
+    mix do compile, phx.digest
 
 USER default
 
