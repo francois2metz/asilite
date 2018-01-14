@@ -1,19 +1,25 @@
-# Asitext
+# ASIText
 
-To start your Phoenix server:
+This is designed as a fast and simple access to https://beta.arretsurimages.net/ for mobile devices.
 
-  * Install dependencies with `mix deps.get`
-  * Install Node.js dependencies with `cd assets && npm install`
-  * Start Phoenix endpoint with `mix phx.server`
+Minimal javacscript will be used.
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+It use the public API to connect (thanks for that) and will forward any credential to the API. Nothing is stored on the server.
 
-Ready to run in production? Please [check our deployment guides](http://www.phoenixframework.org/docs/deployment).
+## Status
 
-## Learn more
+It's currently just a proof of concept. More features are coming soon.
 
-  * Official website: http://www.phoenixframework.org/
-  * Guides: http://phoenixframework.org/docs/overview
-  * Docs: https://hexdocs.pm/phoenix
-  * Mailing list: http://groups.google.com/group/phoenix-talk
-  * Source: https://github.com/phoenixframework/phoenix
+## Usage
+
+    ./script/server
+
+## Acknowledgement
+
+Thanks to the team at arretsurimages to have an API. I don't like the choice of using javascript on the client side, but the API is very simple to use.
+
+## License
+
+(c) 2018 François de Metz
+
+MIT
