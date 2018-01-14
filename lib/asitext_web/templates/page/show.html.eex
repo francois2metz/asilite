@@ -3,7 +3,7 @@
   <li><a href="<%= page_path(@conn, :type, @article["content_type"]["content_format"]["slug"]) %>"><%= @article["content_type"]["content_format"]["label"] %></a></li>
   <li class="active"><%= @article["title"] %></li>
 </ol>
-<article>
+<article class="article">
   <h1 class="page-header"><%= @article["title"] %></h1>
   <h2><%= @article["subtitle"] %></h2>
 

@@ -1,4 +1,12 @@
 /* This file is for your main application css. */
-img {
+.article img {
+  display: block;
+  margin: 0 auto;
   max-width: 100%;
+}
+.article .quoted {
+  font-style: italic;
+}
+.article .quoted::before {
+  content: "";
 }
