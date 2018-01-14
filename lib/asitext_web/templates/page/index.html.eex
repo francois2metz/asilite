@@ -1,4 +1,4 @@
 <ol class="breadcrumb">
   <li class="active">Accueil</li>
 </ol>
-<%= render "searchresult.html", results: @results %>
+<%= render "searchresult.html", results: @results, start: @start %>
