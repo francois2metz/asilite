@@ -17,6 +17,8 @@ defmodule AsitextWeb.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
+    get "/login", PageController, :login
+    post "/login", PageController, :log
     get "/:type/:slug", PageController, :show
   end
 
