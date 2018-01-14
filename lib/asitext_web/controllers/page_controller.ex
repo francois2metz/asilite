@@ -7,9 +7,9 @@ defmodule AsitextWeb.PageController do
     render conn, "index.html", title: title, results: results
   end
 
-  def article(conn, %{"slug" => slug}) do
-    article = Asi.get("contents/articles/" <> slug).body
+  def show(conn, %{"type" => type, "slug" => slug}) do
+    article = Asi.get("contents/" <> type <> "/" <> slug).body
     title   = article["title"]
-    render conn, "article.html", article: article, title: title
+    render conn, "show.html", article: article, title: title
   end
 end
