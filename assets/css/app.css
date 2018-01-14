@@ -1,4 +1,10 @@
 /* This file is for your main application css. */
+@import url('https://fonts.googleapis.com/css?family=Merriweather');
+
+.article p {
+  font-family: Merriweather, serif;
+  font-size: 18px;
+}
 .article img {
   display: block;
   margin: 0 auto;
