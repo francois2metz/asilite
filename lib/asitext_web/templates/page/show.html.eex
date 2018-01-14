@@ -1,5 +1,10 @@
+<ol class="breadcrumb">
+  <li><a href="<%= page_path(@conn, :index) %>">Accueil</a></li>
+  <li><a href="<%= page_path(@conn, :type, @article["content_type"]["content_format"]["slug"]) %>"><%= @article["content_type"]["content_format"]["label"] %></a></li>
+  <li class="active"><%= @article["title"] %></li>
+</ol>
 <article>
-  <h1><%= @article["title"] %></h1>
+  <h1 class="page-header"><%= @article["title"] %></h1>
   <h2><%= @article["subtitle"] %></h2>
 
   <p><strong><%= @article["lead"] %></strong></p>

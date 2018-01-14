@@ -6,6 +6,11 @@ defmodule AsitextWeb.PageController do
     render conn, "index.html", title: "Accueil", results: results
   end
 
+  def type(conn, %{"type" => type}) do
+    results = get_asi(conn, "search", "format=" <> type).body
+    render conn, "type.html", title: type, results: results, type: type
+  end
+
   def show(conn, %{"type" => type, "slug" => slug}) do
     article = get_asi(conn, "contents/" <> type <> "/" <> slug).body
     title   = article["title"]
@@ -35,12 +40,16 @@ defmodule AsitextWeb.PageController do
   end
 
   def get_asi(conn, path) do
+    get_asi(conn, path, "")
+  end
+
+  def get_asi(conn, path, query) do
     access_token = get_session(conn, :access_token)
     url = case access_token do
             nil ->
               path
             _ ->
-              path <>"?q=&access_token=" <> access_token
+              path <>"?"<> query <>"&access_token=" <> access_token
           end
     Asi.get(url)
   end

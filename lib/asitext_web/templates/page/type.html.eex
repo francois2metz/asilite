@@ -1,5 +1,6 @@
 <ol class="breadcrumb">
-  <li class="active">Accueil</li>
+  <li><a href="<%= page_path(@conn, :index) %>">Accueil</a></li>
+  <li class="active"><%= @type %></li>
 </ol>
 <%= for hit <- @results["hits"]["hits"] do %>
   <div>
