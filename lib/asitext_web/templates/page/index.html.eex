@@ -1,11 +1,4 @@
 <ol class="breadcrumb">
   <li class="active">Accueil</li>
 </ol>
-<%= for hit <- @results["hits"]["hits"] do %>
-  <div>
-    <a href="<%= hit["path"] %>">
-      <h1><%= hit["title"] %></h1>
-      <p><%= hit["tease"] %></p>
-    </a>
-  </div>
-<% end %>
+<%= render "searchresult.html", results: @results %>
