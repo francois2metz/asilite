@@ -1,5 +1,4 @@
 <ol class="breadcrumb">
-  <li><a href="<%= page_path(@conn, :index) %>">Accueil</a></li>
   <li class="active"><%= @type %></li>
 </ol>
 <%= render "searchresult.html", results: @results, start: @start %>

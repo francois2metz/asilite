@@ -12,6 +12,27 @@
   </head>
 
   <body>
+
+    <nav class="navbar navbar-default">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="<%= page_path(@conn, :index) %>">ASI Lite</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav navbar-right">
+            <li>
+              <%= if (@conn.assigns[:logged]) do %>
+                <span class="navbar-text">Connecté</span>
+              <% else %>
+                <a href="<%= page_path(@conn, :login) %>">Connexion</a>
+              <% end %>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
     <div class="container">
       <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
       <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>

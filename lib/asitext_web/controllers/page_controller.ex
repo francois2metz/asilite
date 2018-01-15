@@ -62,30 +62,30 @@ defmodule AsitextWeb.PageController do
 
   def get_asi(conn, url, query, headers, retry) do
     access_token = get_session(conn, :access_token)
-    query2 = case access_token do
-               nil ->
-                 query
-               _ ->
-                 Map.put(query, "access_token", access_token)
-             end
+    {conn2, query2} = case access_token do
+                        nil ->
+                          {assign(conn, :logged, false), query}
+                        _ ->
+                          {assign(conn, :logged, true), Map.put(query, "access_token", access_token)}
+                      end
     response = Asi.get(url, query: query2, headers: headers)
 
     case response.status_code do
       401 ->
-        result = Asi.refresh_token(access_token, get_session(conn, :refresh_token))
+        result = Asi.refresh_token(access_token, get_session(conn2, :refresh_token))
         case result.status_code do
           200 ->
             body = Poison.decode!(result.body)
-            put_session(conn, :access_token, body["access_token"]) |>
+            put_session(conn2, :access_token, body["access_token"]) |>
               put_session(:refresh_token, body["refresh_token"]) |>
               get_asi(url, query, headers, retry + 1)
           _ ->
-            {put_flash(conn, :error, "Could not connect"), response}
+            {put_flash(conn2, :error, "Could not connect"), response}
         end
       200 ->
-        {conn, response}
+        {conn2, response}
       206 ->
-        {conn, response}
+        {conn2, response}
     end
   end
 end
