@@ -34,10 +34,10 @@ defmodule AsitextWeb.PageController do
           put_session(:token_type, body["token_type"]) |>
           put_session(:expires_in, body["expires_in"]) |>
           put_flash(:info, "Logged in!") |>
-          redirect to: page_path(conn, :index)
+          redirect(to: page_path(conn, :index))
       _ ->
         put_flash(conn, :error, "Could not connect") |>
-          redirect to: page_path(conn, :login)
+          redirect(to: page_path(conn, :login))
     end
   end
 
