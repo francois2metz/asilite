@@ -12,5 +12,6 @@
   </div>
 <% end %>
 <div class="text-center">
+  <br>
   <a href="?start=<%= String.to_integer(@start) + 10 %>" class="btn btn-default">Afficher une autre page</a>
 </div>

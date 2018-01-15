@@ -20,6 +20,7 @@
     <div class="embed-responsive embed-responsive-16by9">
       <iframe src="<%= String.replace(Map.get(@article, "associated_video")["reference_url"], "vimeo.com/", "player.vimeo.com/video/") %>" allowfullscreen></iframe>
     </div>
+    <br>
   <% end %>
 
   <p><strong><%= @article["lead"] %></strong></p>
