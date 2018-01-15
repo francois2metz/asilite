@@ -14,6 +14,8 @@ defmodule Asi do
   end
 
   def oauth_default_params do
+    # Dear @si, As soon as you open the API with another grant_type, I'll remove these stolen credentials
+    # from your javascript client. For javascript client, the implicit grant flow is much better.
     %{"client_id" => "1_1e3dazertyukilygfos7ldzertyuof7pfd",
       "client_secret" => "2r8yd4a8un0fn45d93acfr3efrgthzdheifhrehihidg4dk5kds7ds23"}
   end
