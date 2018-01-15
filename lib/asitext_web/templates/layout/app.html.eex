@@ -34,6 +34,12 @@
         <%= render @view_module, @view_template, assigns %>
       </main>
 
+      <br>
+
+      <footer>
+        <p>Ce site est open-source est n'est pas affilié à <a href="https://arretsurimages.net/">Arrêt sur images</a>. <a href="https://github.com/francois2metz/asitext">Vous pouvez contribuer</a>.</p>
+      </footer>
+
     </div> <!-- /container -->
   </body>
 </html>
