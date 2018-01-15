@@ -25,7 +25,13 @@ Planned features:
 
 ## Usage
 
+You will need docker to run asitext.
+
+On development, run:
+
     ./script/server
+
+It will run the server and expose it on the 4000 port: http://localhost:4000
 
 ## Acknowledgement
 
