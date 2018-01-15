@@ -2,21 +2,22 @@ defmodule AsitextWeb.PageController do
   use AsitextWeb, :controller
 
   def index(conn, params) do
-    start   = Map.get(params, "start", "0")
-    results = get_asi(conn, "search", %{}, ["Range": format_range(start)]).body
-    render conn, "index.html", title: "Accueil", results: results, start: start
+    start             = Map.get(params, "start", "0")
+    {conn2, response} = get_asi(conn, "search", %{}, ["Range": format_range(start)])
+
+    render conn2, "index.html", title: "Accueil", results: response.body, start: start
   end
 
   def type(conn, %{"type" => type} = params) do
-    start   = Map.get(params, "start", "0")
-    results = get_asi(conn, "search", %{"format" => type}, ["Range": format_range(start)]).body
-    render conn, "type.html", title: type, results: results, type: type, start: start
+    start             = Map.get(params, "start", "0")
+    {conn2, response} = get_asi(conn, "search", %{"format" => type}, ["Range": format_range(start)])
+    render conn2, "type.html", title: type, results: response.body, type: type, start: start
   end
 
   def show(conn, %{"type" => type, "slug" => slug}) do
-    article = get_asi(conn, "contents/" <> type <> "/" <> slug).body
-    title   = article["title"]
-    render conn, "show.html", article: article, title: title
+    {conn2, response} = get_asi(conn, "contents/" <> type <> "/" <> slug)
+    title             = response.body["title"]
+    render conn2, "show.html", article: response.body, title: title
   end
 
   def login(conn, _params) do
@@ -31,8 +32,6 @@ defmodule AsitextWeb.PageController do
         body = Poison.decode!(result.body)
         put_session(conn, :access_token, body["access_token"]) |>
           put_session(:refresh_token, body["refresh_token"]) |>
-          put_session(:token_type, body["token_type"]) |>
-          put_session(:expires_in, body["expires_in"]) |>
           put_flash(:info, "Logged in!") |>
           redirect(to: page_path(conn, :index))
       _ ->
@@ -54,6 +53,14 @@ defmodule AsitextWeb.PageController do
   end
 
   def get_asi(conn, url, query, headers) do
+    get_asi(conn, url, query, headers, 0)
+  end
+
+  def get_asi(_conn, _url, _query, _headers, 2) do
+    raise "oops"
+  end
+
+  def get_asi(conn, url, query, headers, retry) do
     access_token = get_session(conn, :access_token)
     query2 = case access_token do
                nil ->
@@ -61,6 +68,24 @@ defmodule AsitextWeb.PageController do
                _ ->
                  Map.put(query, "access_token", access_token)
              end
-    Asi.get(url, query: query2, headers: headers)
+    response = Asi.get(url, query: query2, headers: headers)
+
+    case response.status_code do
+      401 ->
+        result = Asi.refresh_token(access_token, get_session(conn, :refresh_token))
+        case result.status_code do
+          200 ->
+            body = Poison.decode!(result.body)
+            put_session(conn, :access_token, body["access_token"]) |>
+              put_session(:refresh_token, body["refresh_token"]) |>
+              get_asi(url, query, headers, retry + 1)
+          _ ->
+            {put_flash(conn, :error, "Could not connect"), response}
+        end
+      200 ->
+        {conn, response}
+      206 ->
+        {conn, response}
+    end
   end
 end
