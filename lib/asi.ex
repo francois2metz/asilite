@@ -23,7 +23,7 @@ defmodule Asi do
   def get_token(%{"email" => email, "password" => password}) do
     body = Poison.encode!(Map.merge(%{"username" => email,
                                       "password" => password,
-                                      "grant_type" => "password"}, oauth_default_params))
+                                      "grant_type" => "password"}, oauth_default_params()))
 
 
     HTTPotion.post "https://api.arretsurimages.net/oauth/v2/token", [
@@ -33,7 +33,7 @@ defmodule Asi do
 
   def refresh_token(access_token, refresh_token) do
     body = Poison.encode!(Map.merge(%{"refresh_token" => refresh_token,
-                                      "grant_type" => "refresh_token"}, oauth_default_params))
+                                      "grant_type" => "refresh_token"}, oauth_default_params()))
 
     HTTPotion.post "https://api.arretsurimages.net/oauth/v2/token", [
       body: body,
