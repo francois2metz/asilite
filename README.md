@@ -4,7 +4,7 @@ This is designed as a fast and simple alternative to https://beta.arretsurimages
 
 Minimal javascript is used.
 
-It use the public API to fetch the content and all credentials to the API. **Nothing is stored on the server**.
+It use the public API to fetch the content. **Nothing is stored on the server**.
 
 ## Status
 
