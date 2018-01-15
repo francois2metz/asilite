@@ -1,11 +1,17 @@
+<ol class="breadcrumb">
+  <li><a href="<%= page_path(@conn, :index) %>">Accueil</a></li>
+  <li class="active">Connexion</li>
+</ol>
+
 <%= form_for @conn, page_path(@conn, :log), fn f -> %>
-  <label>
-    Email
-    <%= email_input f, :email %>
-  </label>
-  <label>
-    Mot de passe
-    <%= password_input f, :password %>
-  </label>
-  <%= submit "Login" %>
+  <p>Vos identifiants de connexion ne sont pas stocké. Ils sont directement envoyé sur le serveur d'arrêt sur images.</p>
+  <div class="form-group">
+    <label for="email">Email</label>
+    <%= email_input f, :email, id: 'email', class: 'form-control' %>
+  </div>
+  <div class="form-group">
+    <label for="password">Mot de passe</label>
+    <%= password_input f, :password, id: 'password', class: 'form-control' %>
+  </div>
+  <%= submit "Connexion", class: "btn btn-primary btn-lg" %>
 <% end %>

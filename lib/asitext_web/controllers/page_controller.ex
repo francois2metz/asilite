@@ -21,7 +21,7 @@ defmodule AsitextWeb.PageController do
   end
 
   def login(conn, _params) do
-    render conn, "login.html", title: "Login"
+    render conn, "login.html", title: "Connexion"
   end
 
   def log(conn, params) do
@@ -32,10 +32,10 @@ defmodule AsitextWeb.PageController do
         body = Poison.decode!(result.body)
         put_session(conn, :access_token, body["access_token"]) |>
           put_session(:refresh_token, body["refresh_token"]) |>
-          put_flash(:info, "Logged in!") |>
+          put_flash(:info, "Vous êtes connecté!") |>
           redirect(to: page_path(conn, :index))
       _ ->
-        put_flash(conn, :error, "Could not connect") |>
+        put_flash(conn, :error, "Connexion impossible") |>
           redirect(to: page_path(conn, :login))
     end
   end
