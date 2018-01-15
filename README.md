@@ -1,14 +1,27 @@
 # ASIText
 
-This is designed as a fast and simple access to https://beta.arretsurimages.net/ for mobile devices.
+This is designed as a fast and simple alternative to https://beta.arretsurimages.net/ for mobile devices.
 
-Minimal javacscript will be used.
+Minimal javacscript is used.
 
-It use the public API to connect (thanks for that) and will forward any credential to the API. Nothing is stored on the server.
+It use the public API to fetch the content and all credentials to the API. **Nothing is stored on the server**.
 
 ## Status
 
-It's currently just a proof of concept. More features are coming soon.
+It's currently a proof of concept.
+
+What's working:
+
+- Login
+- Listing and pagination of the content
+- Showing content
+- Displaying video
+
+Planned features:
+
+- RSS feed
+- Better navigation
+- Option to display the cover images
 
 ## Usage
 
@@ -16,7 +29,7 @@ It's currently just a proof of concept. More features are coming soon.
 
 ## Acknowledgement
 
-Thanks to the team at arretsurimages to have an API. I don't like the choice of using javascript on the client side, but the API is very simple to use.
+Thanks to the team at arretsurimages for the API. I disagree with the choice of using javascript on the client side, but the API is very simple to use.
 
 ## License
 
