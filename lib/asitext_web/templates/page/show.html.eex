@@ -4,10 +4,10 @@
       <%= String.capitalize(@article["content_type"]["content_format"]["plural"]) %>
     </a>
   </li>
-  <li class="active"><%= @article["title"] %></li>
+  <li class="active"><%= title_cleanup(@article["title"]) %></li>
 </ol>
 <article class="article">
-  <h1 class="page-header"><%= @article["title"] %></h1>
+  <h1 class="page-header"><%= title_cleanup(@article["title"]) %></h1>
   <span>
     <%= for author <- @article["authors"] do  %>
       <%= author["name"] %> -
