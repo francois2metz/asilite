@@ -9,9 +9,14 @@ defmodule AsitextWeb.PageController do
   end
 
   def type(conn, %{"type" => type} = params) do
+    format            = case type do
+                          "chroniques" -> "chronique"
+                          "articles"   -> "article"
+                          "emissions"   -> "emission"
+                        end
     start             = Map.get(params, "start", "0")
-    {conn2, response} = get_asi(conn, "search", %{"format" => type}, ["Range": format_range(start)])
-    render conn2, "type.html", title: type, results: response.body, type: type, start: start
+    {conn2, response} = get_asi(conn, "search", %{"format" => format}, ["Range": format_range(start)])
+    render conn2, "type.html", title: String.capitalize(type), results: response.body, type: type, start: start
   end
 
   def show(conn, %{"type" => type, "slug" => slug}) do

@@ -1,5 +1,9 @@
 <ol class="breadcrumb">
-  <li><a href="<%= page_path(@conn, :type, @article["content_type"]["content_format"]["slug"]) %>"><%= @article["content_type"]["content_format"]["label"] %></a></li>
+  <li>
+    <a href="<%= page_path(@conn, :type, @article["content_type"]["content_format"]["plural"]) %>" class="upcaseFirstLetter">
+      <%= String.capitalize(@article["content_type"]["content_format"]["plural"]) %>
+    </a>
+  </li>
   <li class="active"><%= @article["title"] %></li>
 </ol>
 <article class="article">

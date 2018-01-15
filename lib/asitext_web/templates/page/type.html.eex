@@ -1,4 +1,4 @@
 <ol class="breadcrumb">
-  <li class="active"><%= @type %></li>
+  <li class="active"><%= String.capitalize(@type) %></li>
 </ol>
 <%= render "searchresult.html", results: @results, start: @start %>
