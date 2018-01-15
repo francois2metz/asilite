@@ -2,6 +2,13 @@
   <div class="article">
     <h1 class="h3"><a href="<%= hit["path"] %>"><%= hit["title"] %></a></h1>
     <p><%= hit["tease"] %></p>
+    <span>
+      <%= for author <- hit["authors"] do  %>
+        <%= author["name"] %> -
+      <% end %>
+      <% date = Timex.parse!(hit["published_at"], "{ISO:Extended}") %>
+      <%= Timex.format!(date, "{D} {Mfull} {YYYY}") %>
+    </span>
   </div>
 <% end %>
 <div class="text-center">
