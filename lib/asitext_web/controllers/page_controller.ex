@@ -45,6 +45,11 @@ defmodule AsitextWeb.PageController do
     end
   end
 
+  def atom(conn, _params) do
+    {conn2, response} = get_asi(conn, "search")
+    render conn2, "atom.xml", results: response.body
+  end
+
   def format_range(start) do
     "objects "<> start <>" "<>  Integer.to_string(String.to_integer(start) + 10)
   end

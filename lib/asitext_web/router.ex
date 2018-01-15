@@ -9,8 +9,15 @@ defmodule AsitextWeb.Router do
     plug :put_secure_browser_headers
   end
 
-  pipeline :api do
-    plug :accepts, ["json"]
+  pipeline :atom do
+    plug :accepts, ["xml"]
+    plug :fetch_session
+  end
+
+  scope "/", AsitextWeb do
+    pipe_through :atom
+
+    get "/all.xml", PageController, :atom
   end
 
   scope "/", AsitextWeb do
@@ -22,9 +29,4 @@ defmodule AsitextWeb.Router do
     get "/:type/", PageController, :type
     get "/:type/:slug", PageController, :show
   end
-
-  # Other scopes may use custom stacks.
-  # scope "/api", AsitextWeb do
-  #   pipe_through :api
-  # end
 end

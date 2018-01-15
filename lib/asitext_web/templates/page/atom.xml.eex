@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>ASI Lite</title>
+  <subtitle>Arret sur images</subtitle>
+  <link href="https://asi.2metz.fr/all.xml" rel="self" />
+  <link href="https://asi.2metz.fr/" />
+  <id>https://asi.2metz.fr/</id>
+  <updated><%= List.first(@results["hits"]["hits"])["updated_at"] %></updated>
+
+  <%= for hit <- @results["hits"]["hits"] do %>
+    <entry>
+      <title><%= hit["title"] %></title>
+      <link rel="alternate" type="text/html" href="https://asi.2metz.fr/<%= hit["path"] %>"/>
+      <id>urn:uuid:<%= hit["uuid"] %></id>
+      <published><%= hit["published_at"] %></published>
+      <updated><%= hit["updated_at"] %></updated>
+      <summary><%= hit["tease"] %></summary>
+      <%= for author <- hit["authors"] do  %>
+      <author>
+        <name><%= author["name"] %></name>
+      </author>
+      <% end %>
+    </entry>
+  <% end %>
+
+</feed>
