@@ -18,7 +18,7 @@
   <h2><%= @article["subtitle"] %></h2>
   <%= if Map.has_key? @article, "associated_video" do %>
     <div class="embed-responsive embed-responsive-16by9">
-      <iframe src="<%= String.replace(Map.get(@article, "associated_video")["reference_url"], "vimeo.com/", "player.vimeo.com/video/") %>"></iframe>
+      <iframe src="<%= String.replace(Map.get(@article, "associated_video")["reference_url"], "vimeo.com/", "player.vimeo.com/video/") %>" allowfullscreen></iframe>
     </div>
   <% end %>
 
