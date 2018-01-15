@@ -7,6 +7,10 @@
   <h1 class="page-header"><%= @article["title"] %></h1>
   <h2><%= @article["subtitle"] %></h2>
 
+  <%= if Map.has_key? @article, "associated_video" do %>
+    <iframe src="<%= String.replace(Map.get(@article, "associated_video")["reference_url"], "vimeo.com/", "player.vimeo.com/video/") %>" frameborder="0" width="100%" height="400px"></iframe>
+  <% end %>
+
   <p><strong><%= @article["lead"] %></strong></p>
   <%= raw @article["content"] %>
 </article>
