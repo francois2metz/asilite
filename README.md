@@ -33,6 +33,13 @@ On development, run:
 
 It will run the server and expose it on the 4000 port: http://localhost:4000
 
+## API bugs
+
+Here is the list of unexpected behavior of the API:
+
+- The `Range` header on search results only accept `0 9`, `10 19` and not arbitrary range.
+- The search endpoint ignore parameters if invalid.
+
 ## Acknowledgement
 
 Thanks to the team at arretsurimages for the API. I disagree with the choice of using javascript on the client side, but the API is very simple to use.
