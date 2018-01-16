@@ -25,10 +25,12 @@ defmodule Asi do
                                       "password" => password,
                                       "grant_type" => "password"}, oauth_default_params()))
 
-
     HTTPotion.post "https://api.arretsurimages.net/oauth/v2/token", [
       body: body,
-      headers: ["User-Agent": "asitext - be nice don't block me", "Content-Type": "application/json"]]
+      headers: ["User-Agent": "asitext - be nice don't block me",
+                "Content-Type": "application/json",
+                "Referer": "https://beta.arretsurimages.net/",
+               ]]
   end
 
   def refresh_token(access_token, refresh_token) do
