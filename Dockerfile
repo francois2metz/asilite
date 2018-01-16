@@ -17,6 +17,8 @@ RUN cd assets/ && \
     cd - && \
     mix do compile, phx.digest
 
+RUN chown -R 1001 deps/tzdata/priv
+
 USER default
 
 CMD ["mix", "phx.server"]
