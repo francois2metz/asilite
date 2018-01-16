@@ -2,4 +2,4 @@
 
 docker run --rm --volume $(pwd):/code --workdir /code bitwalker/alpine-elixir-phoenix sh -c "mix do deps.get"
 docker run --rm --volume $(pwd):/code --workdir /code bitwalker/alpine-elixir-phoenix sh -c "cd assets && npm install"
-docker run --rm --volume $(pwd):/code --publish 5000:5000 --workdir /code bitwalker/alpine-elixir-phoenix sh -c "mix phx.server"
+docker run --rm --volume $(pwd):/code --publish 4000:4000 --workdir /code bitwalker/alpine-elixir-phoenix sh -c "mix phx.server"
