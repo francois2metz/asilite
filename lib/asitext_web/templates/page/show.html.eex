@@ -15,7 +15,7 @@
     <% date = Timex.parse!(@article["published_at"], "{ISO:Extended}") %>
     <%= Timex.format!(date, "{D} {Mfull} {YYYY}") %>
   </span>
-  <h2><%= @article["subtitle"] %></h2>
+  <h2><%= title_cleanup(@article["subtitle"]) %></h2>
   <%= if Map.has_key? @article, "associated_video" do %>
     <div class="embed-responsive embed-responsive-16by9">
       <iframe src="<%= String.replace(Map.get(@article, "associated_video")["reference_url"], "vimeo.com/", "player.vimeo.com/video/") %>" allowfullscreen></iframe>
@@ -23,6 +23,6 @@
     <br>
   <% end %>
 
-  <p><strong><%= @article["lead"] %></strong></p>
+  <p><strong><%= raw @article["lead"] %></strong></p>
   <%= raw @article["content"] %>
 </article>
