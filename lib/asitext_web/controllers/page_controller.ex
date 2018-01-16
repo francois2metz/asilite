@@ -3,29 +3,29 @@ defmodule AsitextWeb.PageController do
   plug :get_user_data
 
   def index(conn, params) do
-    start    = Map.get(params, "start", "0")
-    response = get_asi(conn, "search", %{}, ["Range": format_range(start)])
+    start             = Map.get(params, "start", "0")
+    {conn2, response} = get_asi(conn, "search", %{}, ["Range": format_range(start)])
 
-    render conn, "index.html", title: "Accueil", results: response.body, start: start
+    render conn2, "index.html", title: "Accueil", results: response.body, start: start
   end
 
   def type(conn, %{"type" => type} = params) do
-    format   = case type do
-                 "chroniques" -> "chronique"
-                 "articles"   -> "article"
-                 "emissions"  -> "emission"
-               end
-    start    = Map.get(params, "start", "0")
-    response = get_asi(conn, "search", %{"format" => format}, ["Range": format_range(start)])
+    format            = case type do
+                          "chroniques" -> "chronique"
+                          "articles"   -> "article"
+                          "emissions"  -> "emission"
+                        end
+    start             = Map.get(params, "start", "0")
+    {conn2, response} = get_asi(conn, "search", %{"format" => format}, ["Range": format_range(start)])
 
-    render conn, "type.html", title: String.capitalize(type), results: response.body, type: type, start: start
+    render conn2, "type.html", title: String.capitalize(type), results: response.body, type: type, start: start
   end
 
   def show(conn, %{"type" => type, "slug" => slug}) do
-    response = get_asi(conn, "contents/" <> type <> "/" <> slug)
-    title    = response.body["title"]
+    {conn2, response} = get_asi(conn, "contents/" <> type <> "/" <> slug)
+    title             = response.body["title"]
 
-    render conn, "show.html", article: response.body, title: title
+    render conn2, "show.html", article: response.body, title: title
   end
 
   def login(conn, _params) do
@@ -49,9 +49,9 @@ defmodule AsitextWeb.PageController do
   end
 
   def atom(conn, _params) do
-    response = get_asi(conn, "search")
+    {conn2, response} = get_asi(conn, "search")
 
-    render conn, "atom.xml", results: response.body
+    render conn2, "atom.xml", results: response.body
   end
 
   def format_range(start) do
@@ -91,13 +91,12 @@ defmodule AsitextWeb.PageController do
         refresh_token(conn) |>
           get_asi(url, query, headers, retry + 1)
       _ ->
-        response
+        {conn, response}
     end
   end
 
   def refresh_token(conn) do
     response = Asi.refresh_token(get_session(conn, :access_token), get_session(conn, :refresh_token))
-
     case response.status_code do
       200 ->
         body = Poison.decode!(response.body)
