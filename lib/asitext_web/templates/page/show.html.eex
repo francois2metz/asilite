@@ -26,3 +26,13 @@
   <p><strong><%= raw @article["lead"] %></strong></p>
   <%= raw @article["content"] %>
 </article>
+<%= unless (@conn.assigns[:logged] || @article["access_level"] == "free") do %>
+  <div class="panel panel-warning">
+    <div class="panel-heading">
+      Cet article est réservé aux abonné.e.s
+    </div>
+    <div class="panel-body">
+      <a href="<%= page_path(@conn, :login) %>">Connectez vous pour lire la suite.</a>
+    </div>
+  </div
+<% end %>
