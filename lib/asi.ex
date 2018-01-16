@@ -22,7 +22,7 @@ defmodule Asi do
 
   def oauth_default_headers do
     [
-      "User-Agent": "asitext - be nice don't block me",
+      "User-Agent": "asilite - be nice don't block me",
       "Content-Type": "application/json",
       "Referer": "https://beta.arretsurimages.net/",
     ]
