@@ -15,7 +15,7 @@ use Mix.Config
 # which you typically run after static files are built.
 config :asitext, AsitextWeb.Endpoint,
   load_from_system_env: true,
-  url: [host: "example.com", port: 80],
+  url: [host: "asi.2metz.fr", port: 443],
   cache_static_manifest: "priv/static/cache_manifest.json"
 
 # Do not print debug messages in production
@@ -41,8 +41,8 @@ config :logger, level: :info
 # We also recommend setting `force_ssl`, ensuring no data is
 # ever sent via http, always redirecting to https:
 #
-#     config :asitext, AsitextWeb.Endpoint,
-#       force_ssl: [hsts: true]
+config :asitext, AsitextWeb.Endpoint,
+  force_ssl: [hsts: true]
 #
 # Check `Plug.SSL` for all available options in `force_ssl`.
 
