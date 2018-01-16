@@ -20,6 +20,14 @@ defmodule Asi do
       "client_secret" => "2r8yd4a8un0fn45d93acfr3efrgthzdheifhrehihidg4dk5kds7ds23"}
   end
 
+  def oauth_default_headers do
+    [
+      "User-Agent": "asitext - be nice don't block me",
+      "Content-Type": "application/json",
+      "Referer": "https://beta.arretsurimages.net/",
+    ]
+  end
+
   def get_token(%{"email" => email, "password" => password}) do
     body = Poison.encode!(Map.merge(%{"username" => email,
                                       "password" => password,
@@ -27,10 +35,7 @@ defmodule Asi do
 
     HTTPotion.post "https://api.arretsurimages.net/oauth/v2/token", [
       body: body,
-      headers: ["User-Agent": "asitext - be nice don't block me",
-                "Content-Type": "application/json",
-                "Referer": "https://beta.arretsurimages.net/",
-               ]]
+      headers: oauth_default_headers()]
   end
 
   def refresh_token(access_token, refresh_token) do
@@ -40,6 +45,6 @@ defmodule Asi do
     HTTPotion.post "https://api.arretsurimages.net/oauth/v2/token", [
       body: body,
       query: %{"access_token" => access_token},
-      headers: ["User-Agent": "asitext - be nice don't block me", "Content-Type": "application/json"]]
+      headers: oauth_default_headers()]
   end
 end
