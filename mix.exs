@@ -40,7 +40,8 @@ defmodule Asitext.Mixfile do
       {:cowboy, "~> 1.0"},
       {:httpotion, "~> 3.0.2"},
       {:poison, "~> 3.1"},
-      {:timex, "~> 3.0"}
+      {:timex, "~> 3.0"},
+      {:basic_auth, "~> 2.2.2"}
     ]
   end
 end
