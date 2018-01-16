@@ -1,10 +1,9 @@
-<ol class="breadcrumb">
-  <li><a href="<%= page_path(@conn, :index) %>">Accueil</a></li>
-  <li class="active">Connexion</li>
-</ol>
-
 <%= form_for @conn, page_path(@conn, :log), fn f -> %>
-  <p>Vos identifiants de connexion ne sont pas stocké. Ils sont directement envoyé sur le serveur d'arrêt sur images.</p>
+  <p>
+    Pour pouvoir lire l'intégralité des articles et des émisions, vous devez être connecté.
+    Utilisez vos identifiants de connexion de <a href="https://arretsurimages.net/">Arrêt sur images</a>.
+  </p>
+  <p><strong>Vos identifiants de connexion ne sont pas stocké</strong>, mais sont directement envoyé sur le serveur d'Arrêt sur images. Promis. J'ai déjà un abonnement ;) Et si vous n'avez pas confiance, vous pouvez utiliser votre propre instance de ASI Lite: <a href="https://github.com/francois2metz/asitext">github.com/francois2metz/asitext</a></p>
   <div class="form-group">
     <label for="email">Email</label>
     <%= email_input f, :email, id: 'email', class: 'form-control' %>
