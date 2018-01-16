@@ -1,4 +1,4 @@
-# ASIText
+# ASI Lite
 
 This is designed as a fast and simple alternative to https://beta.arretsurimages.net/ for mobile devices.
 
