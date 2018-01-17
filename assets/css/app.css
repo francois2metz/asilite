@@ -16,3 +16,7 @@
 .article .quoted::before {
   content: "";
 }
+.article .article-framed-text {
+  display: block;
+  padding: 20px 60px;
+}
