@@ -93,3 +93,11 @@ In the query string
 **Response:**
 
      200
+
+## Get media info
+
+    GET /media/:slug
+
+**Response:**
+
+    200
