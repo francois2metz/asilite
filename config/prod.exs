@@ -51,13 +51,15 @@ config :asitext, AsitextWeb.Endpoint,
 # If you are doing OTP releases, you need to instruct Phoenix
 # to start the server for all endpoints:
 #
-#     config :phoenix, :serve_endpoints, true
+config :phoenix, :serve_endpoints, true
 #
 # Alternatively, you can configure exactly which server to
 # start per endpoint:
 #
 #     config :asitext, AsitextWeb.Endpoint, server: true
 #
+
+config :tzdata, :data_dir, "/app/elixir_tzdata_data"
 
 # Finally import the config/prod.secret.exs
 # which should be versioned separately.

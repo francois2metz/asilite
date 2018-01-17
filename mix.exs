@@ -41,7 +41,8 @@ defmodule Asitext.Mixfile do
       {:httpotion, "~> 3.0.2"},
       {:poison, "~> 3.1"},
       {:timex, "~> 3.0"},
-      {:basic_auth, "~> 2.2.2"}
+      {:basic_auth, "~> 2.2.2"},
+      {:distillery, "~> 1.5", runtime: false}
     ]
   end
 end

@@ -1,7 +1,6 @@
-FROM bitwalker/alpine-elixir-phoenix:latest
+FROM bitwalker/alpine-elixir-phoenix:latest as builder
 
-ENV PORT=4000 MIX_ENV=prod
-EXPOSE 4000
+ENV MIX_ENV=prod
 
 COPY mix.exs mix.lock ./
 RUN mix do deps.get, deps.compile
@@ -15,10 +14,22 @@ COPY . .
 RUN cd assets/ && \
     npm run deploy && \
     cd - && \
-    mix do compile, phx.digest
+    mix do compile, phx.digest, release
 
-RUN chown -R 1001 deps/tzdata/priv
+FROM alpine:3.7
+
+EXPOSE 4000
+ENV PORT=4000
+
+WORKDIR /app
+
+RUN apk add --no-cache bash openssl && \
+    adduser -s /bin/sh -u 1001 -G root -h /app -S -D default
+
+COPY --from=builder /opt/app/_build/prod/rel/asitext /app
 
 USER default
 
-CMD ["mix", "phx.server"]
+RUN mkdir elixir_tzdata_data
+
+CMD [ "/app/bin/asitext", "foreground" ]
