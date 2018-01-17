@@ -4,7 +4,6 @@
       <%= String.capitalize(@article["content_type"]["content_format"]["plural"]) %>
     </a>
   </li>
-  <li class="active"><%= title_cleanup(@article["title"]) %></li>
 </ol>
 <article class="article">
   <h1 class="page-header"><%= title_cleanup(@article["title"]) %></h1>
