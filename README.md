@@ -19,9 +19,10 @@ What's working:
 
 Planned features:
 
-- RSS feed
+- RSS feed for all formats
 - Better navigation
 - Option to display the cover images
+- Support for inline video
 
 ## Usage
 
