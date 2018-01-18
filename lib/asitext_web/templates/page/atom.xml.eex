@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>ASI Lite</title>
+  <title>ASI Lite - <%= @title %></title>
   <subtitle>Arret sur images</subtitle>
   <link href="https://asi.2metz.fr/all.xml" rel="self" />
   <link href="https://asi.2metz.fr/" />

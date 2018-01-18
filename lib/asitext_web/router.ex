@@ -21,6 +21,7 @@ defmodule AsitextWeb.Router do
     pipe_through :atom
 
     get "/all.xml", PageController, :atom
+    get "/xml/:type", PageController, :atom_type
   end
 
   scope "/", AsitextWeb do

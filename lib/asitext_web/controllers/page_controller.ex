@@ -10,11 +10,7 @@ defmodule AsitextWeb.PageController do
   end
 
   def type(conn, %{"type" => type} = params) do
-    format           = case type do
-                         "chroniques" -> "chronique"
-                         "articles"   -> "article"
-                         "emissions"  -> "emission"
-                       end
+    format           = type_to_format(type)
     start            = Map.get(params, "start", "0")
     {conn, response} = get_asi(conn, "search", %{"format" => format}, ["Range": format_range(start)])
 
@@ -51,7 +47,14 @@ defmodule AsitextWeb.PageController do
   def atom(conn, _params) do
     {conn, response} = get_asi(conn, "search")
 
-    render conn, "atom.xml", results: response.body
+    render conn, "atom.xml", title: "Tout les contenus", results: response.body
+  end
+
+  def atom_type(conn, %{"type" => type}) do
+    format           = type_to_format(type)
+    {conn, response} = get_asi(conn, "search", %{"format" => format})
+
+    render conn, "atom.xml", title: String.capitalize(type), results: response.body
   end
 
   def format_range(start) do
@@ -64,6 +67,14 @@ defmodule AsitextWeb.PageController do
         assign(conn, :logged, false)
       _ ->
         assign(conn, :logged, true)
+    end
+  end
+
+  def type_to_format(type) do
+    case type do
+      "chroniques" -> "chronique"
+      "articles"   -> "article"
+      "emissions"  -> "emission"
     end
   end
 
