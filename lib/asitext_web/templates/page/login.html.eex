@@ -6,11 +6,11 @@
   <p><strong>Vos identifiants de connexion ne sont pas stocké</strong>, mais sont directement envoyé sur le serveur d'Arrêt sur images. Promis. J'ai déjà un abonnement ;) Et si vous n'avez pas confiance, vous pouvez utiliser votre propre instance de ASI Lite: <a href="https://github.com/francois2metz/asilitet">github.com/francois2metz/asilite</a></p>
   <div class="form-group">
     <label for="email">Email</label>
-    <%= email_input f, :email, id: 'email', class: 'form-control' %>
+    <%= email_input f, :email, id: 'email', class: 'form-control', required: 'required' %>
   </div>
   <div class="form-group">
     <label for="password">Mot de passe</label>
-    <%= password_input f, :password, id: 'password', class: 'form-control' %>
+    <%= password_input f, :password, id: 'password', class: 'form-control', required: 'required' %>
   </div>
   <%= submit "Connexion", class: "btn btn-primary btn-lg" %>
 <% end %>
