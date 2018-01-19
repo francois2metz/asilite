@@ -22,13 +22,20 @@
         <div class="navbar-header">
           <a class="navbar-brand" href="<%= page_path(@conn, :index) %>">ASI Lite</a>
         </div>
-        <p class="navbar-text navbar-right">
-          <%= if (@conn.assigns[:logged]) do %>
-          Connecté
-          <% else %>
-          <a class="navbar-link" href="<%= page_path(@conn, :login) %>">Connexion</a>
-          <% end %>
-        </p>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <%= for {type, name} <- nav_links() do %>
+              <li<%= if assigns[:type] && @type == type do %> class="active"<% end %>><a href="<%= page_path(@conn, :type, type) %>"><%= name %></a></li>
+            <% end %>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <%= if (@conn.assigns[:logged]) do %>
+              <p class="navbar-text">Connecté</p>
+            <% else %>
+              <a class="navbar-text navbar-link" href="<%= page_path(@conn, :login) %>">Connexion</a>
+            <% end %>
+          </ul>
+        </div>
       </div>
     </nav>
 

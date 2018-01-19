@@ -23,7 +23,7 @@ defmodule AsitextWeb.PageController do
     {conn, response} = get_asi(conn, "contents/" <> type <> "/" <> slug)
     title            = response.body["title"]
 
-    render conn, "show.html", article: response.body, title: title
+    render conn, "show.html", article: response.body, title: title, type: type
   end
 
   def login(conn, _params) do
