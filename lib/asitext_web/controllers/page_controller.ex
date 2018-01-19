@@ -1,6 +1,8 @@
 defmodule AsitextWeb.PageController do
   use AsitextWeb, :controller
+
   plug :get_user_data
+  plug :set_csp
 
   def index(conn, params) do
     start            = Map.get(params, "start", "0")
@@ -68,6 +70,14 @@ defmodule AsitextWeb.PageController do
       _ ->
         assign(conn, :logged, true)
     end
+  end
+
+  def set_csp(conn, _) do
+    [nonce] = get_resp_header(conn, "x-request-id")
+    put_resp_header(conn,
+      "Content-Security-Policy",
+      "script-src 'self' http://www.google-analytics.com/ 'nonce-"<> nonce <>"';") |>
+        assign(:nonce, nonce)
   end
 
   def type_to_format(type) do
