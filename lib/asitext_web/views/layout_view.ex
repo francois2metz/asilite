@@ -4,7 +4,7 @@ defmodule AsitextWeb.LayoutView do
   def nav_links do
     [
       {"articles", "Articles"},
-      {"emissions", "Émisions"},
+      {"emissions", "Émissions"},
       {"chroniques", "Chroniques"},
     ]
   end
