@@ -30,6 +30,7 @@ defmodule AsitextWeb.Router do
     get "/", PageController, :index
     get "/login", PageController, :login
     post "/login", PageController, :log
+    get "/search", PageController, :search
     get "/:type/", PageController, :type
     get "/:type/:slug", PageController, :show
   end

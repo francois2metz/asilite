@@ -46,6 +46,13 @@ defmodule AsitextWeb.PageController do
     end
   end
 
+  def search(conn, %{"q" => q} = params) do
+    start            = Map.get(params, "start", "0")
+    {conn, response} = get_asi(conn, "search", %{"q" => q}, ["Range": format_range(start)])
+
+    render conn, "search.html", title: "Search "<> q, results: response.body, start: start, q: q
+  end
+
   def atom(conn, _params) do
     {conn, response} = get_asi(conn, "search")
 

@@ -37,6 +37,11 @@
               <li<%= if assigns[:type] && @type == type do %> class="active"<% end %>><a href="<%= page_path(@conn, :type, type) %>"><%= name %></a></li>
             <% end %>
           </ul>
+          <form class="navbar-form navbar-left" action="<%= page_path(@conn, :search) %>" method="get">
+            <div class="form-group">
+              <input type="text" name="q" value="<%= assigns[:q] || "" %>" class="form-control" placeholder="Recherche">
+            </div>
+          </form>
           <ul class="nav navbar-nav navbar-right">
             <li>
               <%= if (@conn.assigns[:logged]) do %>
