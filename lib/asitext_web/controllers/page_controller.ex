@@ -1,6 +1,10 @@
 defmodule AsitextWeb.PageController do
   use AsitextWeb, :controller
 
+  if Application.get_env(:asitext, :basic_auth) do
+    plug BasicAuth, [use_config: {:asitext, :basic_auth}] when action in [:login, :log]
+  end
+
   plug :get_user_data
   plug :set_csp
 

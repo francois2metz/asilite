@@ -7,9 +7,6 @@ defmodule AsitextWeb.Router do
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
-    if Application.get_env(:asitext, :basic_auth) do
-      plug BasicAuth, use_config: {:asitext, :basic_auth}
-    end
   end
 
   pipeline :atom do
