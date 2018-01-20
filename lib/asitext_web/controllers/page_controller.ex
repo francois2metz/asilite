@@ -46,7 +46,7 @@ defmodule AsitextWeb.PageController do
     end
   end
 
-  def logout(conn, params) do
+  def logout(conn, _params) do
     put_flash(conn, :info, "Vous êtes déconnecté") |>
       delete_session(:access_token) |>
       delete_session(:refresh_token) |>
