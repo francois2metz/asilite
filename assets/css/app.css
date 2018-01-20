@@ -20,3 +20,6 @@
   display: block;
   padding: 20px 60px;
 }
+.article .page-header {
+  margin-top: 10px;
+}
