@@ -45,7 +45,7 @@
           <ul class="nav navbar-nav navbar-right">
             <li>
               <%= if (@conn.assigns[:logged]) do %>
-                <%= form_for @conn, page_path(@conn, :logout), [class: "navbar-form no-padding-x"], fn f -> %>
+                <%= form_for @conn, page_path(@conn, :logout), [class: "navbar-form no-padding-x"], fn _f -> %>
                   <div class="form-group">
                     <%= submit "Déconnexion", class: "btn btn-default" %>
                   </div>
