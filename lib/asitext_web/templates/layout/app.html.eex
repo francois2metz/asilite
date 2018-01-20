@@ -45,7 +45,11 @@
           <ul class="nav navbar-nav navbar-right">
             <li>
               <%= if (@conn.assigns[:logged]) do %>
-                <a href="#">Connecté</a>
+                <%= form_for @conn, page_path(@conn, :logout), [class: "navbar-form no-padding-x"], fn f -> %>
+                  <div class="form-group">
+                    <%= submit "Déconnexion", class: "btn btn-default" %>
+                  </div>
+                <% end %>
               <% else %>
                 <a href="<%= page_path(@conn, :login) %>">Connexion</a>
               <% end %>

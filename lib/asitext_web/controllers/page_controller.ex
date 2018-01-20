@@ -46,6 +46,13 @@ defmodule AsitextWeb.PageController do
     end
   end
 
+  def logout(conn, params) do
+    put_flash(conn, :info, "Vous êtes déconnecté") |>
+      delete_session(:access_token) |>
+      delete_session(:refresh_token) |>
+      redirect(to: page_path(conn, :index))
+  end
+
   def search(conn, %{"q" => q} = params) do
     start            = Map.get(params, "start", "0")
     {conn, response} = get_asi(conn, "search", %{"q" => q}, ["Range": format_range(start)])
