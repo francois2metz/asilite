@@ -94,7 +94,7 @@ defmodule AsitextWeb.PageController do
     [nonce] = get_resp_header(conn, "x-request-id")
     put_resp_header(conn,
       "Content-Security-Policy",
-      "script-src 'self' http://www.google-analytics.com/ 'nonce-"<> nonce <>"';") |>
+      "script-src 'self' https://www.google-analytics.com/ 'nonce-"<> nonce <>"';") |>
         assign(:nonce, nonce)
   end
 
