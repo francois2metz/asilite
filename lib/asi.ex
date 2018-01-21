@@ -6,7 +6,7 @@ defmodule Asi do
   end
 
   def process_request_headers(headers) do
-    Dict.put headers, :"User-Agent", "asitext - be nice don't block me"
+    Keyword.put headers, :"User-Agent", "asitext - be nice don't block me"
   end
 
   def process_response_body(body) do
