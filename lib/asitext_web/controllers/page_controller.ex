@@ -40,21 +40,24 @@ defmodule AsitextWeb.PageController do
     case result.status_code do
       200 ->
         body = Poison.decode!(result.body)
-        put_session(conn, :access_token, body["access_token"]) |>
-          put_session(:refresh_token, body["refresh_token"]) |>
-          put_flash(:info, "Vous êtes connecté!") |>
-          redirect(to: page_path(conn, :index))
+        conn
+        |> put_session(:access_token, body["access_token"])
+        |> put_session(:refresh_token, body["refresh_token"])
+        |> put_flash(:info, "Vous êtes connecté!")
+        |> redirect(to: page_path(conn, :index))
       _ ->
-        put_flash(conn, :error, "Connexion impossible") |>
-          redirect(to: page_path(conn, :login))
+        conn
+        |> put_flash(:error, "Connexion impossible")
+        |> redirect(to: page_path(conn, :login))
     end
   end
 
   def logout(conn, _params) do
-    put_flash(conn, :info, "Vous êtes déconnecté") |>
-      delete_session(:access_token) |>
-      delete_session(:refresh_token) |>
-      redirect(to: page_path(conn, :index))
+    conn
+    |> put_flash(:info, "Vous êtes déconnecté")
+    |> delete_session(:access_token)
+    |> delete_session(:refresh_token)
+    |> redirect(to: page_path(conn, :index))
   end
 
   def search(conn, %{"q" => q} = params) do
@@ -92,10 +95,9 @@ defmodule AsitextWeb.PageController do
 
   def set_csp(conn, _) do
     [nonce] = get_resp_header(conn, "x-request-id")
-    put_resp_header(conn,
-      "Content-Security-Policy",
-      "script-src 'self' https://www.google-analytics.com/ 'nonce-"<> nonce <>"';") |>
-        assign(:nonce, nonce)
+    conn
+    |> put_resp_header("Content-Security-Policy", "script-src 'self' https://www.google-analytics.com/ 'nonce-"<> nonce <>"';")
+    |> assign(:nonce, nonce)
   end
 
   def type_to_format(type) do
@@ -127,8 +129,9 @@ defmodule AsitextWeb.PageController do
 
     case response.status_code do
       401 ->
-        refresh_token(conn) |>
-          get_asi(url, query, headers, retry + 1)
+        conn
+        |> refresh_token()
+        |> get_asi(url, query, headers, retry + 1)
       _ ->
         {conn, response}
     end
@@ -139,12 +142,14 @@ defmodule AsitextWeb.PageController do
     case response.status_code do
       200 ->
         body = Poison.decode!(response.body)
-        put_session(conn, :access_token, body["access_token"]) |>
-          put_session(:refresh_token, body["refresh_token"])
+        conn
+        |> put_session(:access_token, body["access_token"])
+        |> put_session(:refresh_token, body["refresh_token"])
       _ ->
-        put_flash(conn, :error, "La session a expiré") |>
-          delete_session(:access_token) |>
-          delete_session(:refresh_token)
+        conn
+        |> put_flash(:error, "La session a expiré")
+        |> delete_session(:access_token)
+        |> delete_session(:refresh_token)
     end
   end
 
