@@ -166,12 +166,30 @@ defmodule AsitextWeb.PageController do
   def rewrite_html(html) do
     html
     |> Floki.parse()
+    |> rewrite_links()
+    |> rewrite_tags()
+    |> Floki.raw_html()
+  end
+
+  def rewrite_links(html) do
+    html
     |> Floki.attr("a", "href", fn(href) ->
       href
       |> String.replace(~r/^\/([^\/]+)\/[0-9-]+\/(.+)/, "/\\1/\\2")
       |> String.replace(~r/https:\/\/beta.arretsurimages.net\/([^\/]+)\/[0-9-]+\/(.+)/, "/\\1/\\2")
       |> String.replace(~r/https:\/\/beta.arretsurimages.net\/([^\/]+)\/([^\/]+)/, "/\\1/\\2")
     end)
-    |> Floki.raw_html()
+  end
+
+  def rewrite_tags(html) do
+    html
+    |> Floki.map(fn({name, attributes}) ->
+      class = :proplists.get_value("class", attributes)
+      attributes = :proplists.delete("class", attributes)
+      case name do
+        "asi-image" -> {"div", [{"class", "image "<> class}|attributes]}
+        _ -> {name, attributes}
+      end
+    end)
   end
 end
