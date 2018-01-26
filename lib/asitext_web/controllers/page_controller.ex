@@ -156,10 +156,8 @@ defmodule AsitextWeb.PageController do
   def set_query_params(conn, query) do
     access_token = get_session(conn, :access_token)
     case access_token do
-      nil ->
-        query
-      _ ->
-        Map.put(query, "access_token", access_token)
+      nil -> query
+      _ -> Map.put(query, "access_token", access_token)
     end
   end
 
