@@ -26,6 +26,10 @@
 .article h2:first-letter {
   text-transform: uppercase;
 }
+.article .image {
+  text-align: center;
+  padding: 5px 0;
+}
 .navbar-form.no-padding-x {
   padding-left: 0;
   padding-right: 0;
