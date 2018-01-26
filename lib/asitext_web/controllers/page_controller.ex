@@ -27,7 +27,7 @@ defmodule AsitextWeb.PageController do
     {conn, response} = get_asi(conn, "contents/" <> type <> "/" <> slug)
     title            = response.body["title"]
 
-    render conn, "show.html", article: response.body, title: title, type: type
+    render conn, "show.html", article: response.body, title: title, type: type, content: rewrite_html(response.body["content"])
   end
 
   def login(conn, _params) do
@@ -161,5 +161,17 @@ defmodule AsitextWeb.PageController do
       _ ->
         Map.put(query, "access_token", access_token)
     end
+  end
+
+  def rewrite_html(html) do
+    html
+    |> Floki.parse()
+    |> Floki.attr("a", "href", fn(href) ->
+      href
+      |> String.replace(~r/^\/([^\/]+)\/[0-9-]+\/(.+)/, "/\\1/\\2")
+      |> String.replace(~r/https:\/\/beta.arretsurimages.net\/([^\/]+)\/[0-9-]+\/(.+)/, "/\\1/\\2")
+      |> String.replace(~r/https:\/\/beta.arretsurimages.net\/([^\/]+)\/([^\/]+)/, "/\\1/\\2")
+    end)
+    |> Floki.raw_html()
   end
 end

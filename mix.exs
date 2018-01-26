@@ -42,6 +42,7 @@ defmodule Asitext.Mixfile do
       {:poison, "~> 3.1"},
       {:timex, "~> 3.0"},
       {:basic_auth, "~> 2.2.2"},
+      {:floki, github: 'francois2metz/floki', branch: 'fix-floki-attr-order'},
       {:distillery, "~> 1.5", runtime: false}
     ]
   end

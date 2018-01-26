@@ -16,7 +16,7 @@
   <% end %>
 
   <p><strong><%= raw @article["lead"] %></strong></p>
-  <%= raw @article["content"] %>
+  <%= raw @content %>
 </article>
 <%= unless (@conn.assigns[:logged] || @article["access_level"] == "free") do %>
   <div class="panel panel-warning">
