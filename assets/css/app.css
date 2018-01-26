@@ -16,7 +16,7 @@
 .article .quoted::before {
   content: "";
 }
-.article .article-framed-text {
+.article .encadre {
   display: block;
   padding: 20px 60px;
 }
