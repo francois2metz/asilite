@@ -23,6 +23,9 @@
 .article .page-header {
   margin-top: 10px;
 }
+.article h2:first-letter {
+  text-transform: uppercase;
+}
 .navbar-form.no-padding-x {
   padding-left: 0;
   padding-right: 0;
