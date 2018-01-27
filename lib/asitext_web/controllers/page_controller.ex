@@ -183,10 +183,10 @@ defmodule AsitextWeb.PageController do
     html
     |> Floki.map(fn({name, attributes}) ->
       class = :proplists.get_value("class", attributes)
-      attributes = :proplists.delete("class", attributes)
+      attributes2 = :proplists.delete("class", attributes)
       case name do
-        "asi-image" -> {"div", [{"class", "image "<> class}|attributes]}
-        "asi-encadre" -> {"div", [{"class", "encadre "<> class}|attributes]}
+        "asi-image" -> {"div", [{"class", "image "<> class}|attributes2]}
+        "asi-encadre" -> {"div", [{"class", "encadre "<> class}|attributes2]}
         _ -> {name, attributes}
       end
     end)

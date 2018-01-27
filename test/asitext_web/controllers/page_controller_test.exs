@@ -30,4 +30,9 @@ defmodule AsitextWeb.PageControllerTest do
     html = ~s(<div><asi-encadre class="no-remove">Content</asi-encadre></div>)
     assert AsitextWeb.PageController.rewrite_html(html) == ~s(<div><div class="encadre no-remove">Content</div></div>)
   end
+
+  test "don't rewrite other div" do
+    html = ~s(<div><div class="no-remove">Content</div></div>)
+    assert AsitextWeb.PageController.rewrite_html(html) == ~s(<div><div class="no-remove">Content</div></div>)
+  end
 end
