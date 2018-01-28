@@ -26,8 +26,12 @@ defmodule AsitextWeb.PageController do
   def show(conn, %{"type" => type, "slug" => slug}) do
     {conn, response} = get_asi(conn, "contents/" <> type <> "/" <> slug)
     title            = response.body["title"]
+    fetch_content    = fn slug ->
+      {_, response} = get_asi(conn, "media/"<> slug)
+      response
+    end
 
-    render conn, "show.html", article: response.body, title: title, type: type, content: rewrite_html(response.body["content"])
+    render conn, "show.html", article: response.body, title: title, type: type, content: rewrite_html(response.body["content"], fetch_content)
   end
 
   def login(conn, _params) do
@@ -160,11 +164,11 @@ defmodule AsitextWeb.PageController do
     end
   end
 
-  def rewrite_html(html) do
+  def rewrite_html(html, fetch_content) do
     html
     |> Floki.parse()
     |> rewrite_links()
-    |> rewrite_tags()
+    |> rewrite_tags(fetch_content)
     |> Floki.raw_html()
   end
 
@@ -178,7 +182,7 @@ defmodule AsitextWeb.PageController do
     end)
   end
 
-  def rewrite_tags(html) do
+  def rewrite_tags(html, fetch_content) do
     html
     |> Floki.map(fn({name, attributes}) ->
       class = :proplists.get_value("class", attributes)
@@ -186,6 +190,10 @@ defmodule AsitextWeb.PageController do
       case name do
         "asi-image" -> {"div", [{"class", "image "<> class}|attributes2]}
         "asi-encadre" -> {"div", [{"class", "encadre "<> class}|attributes2]}
+        "asi-video" ->
+          slug = :proplists.get_value("slug", attributes)
+          response = fetch_content.(slug)
+          {"iframe", [{"src", response.body["metas"]["embed_url"]}, {"allowfullscreen", "true"}|attributes]}
         _ -> {name, attributes}
       end
     end)
