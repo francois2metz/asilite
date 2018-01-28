@@ -85,12 +85,11 @@ defmodule AsitextWeb.PageController do
   end
 
   def get_user_data(conn, _) do
-    case get_session(conn, :access_token) do
-      nil ->
-        assign(conn, :logged, false)
-      _ ->
-        assign(conn, :logged, true)
-    end
+    logged = case get_session(conn, :access_token) do
+               nil -> false
+               _ -> true
+             end
+    assign(conn, :logged, logged)
   end
 
   def set_csp(conn, _) do
