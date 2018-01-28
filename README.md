@@ -24,7 +24,7 @@ Planned features:
 
 ## Usage
 
-You will need docker to run asitext.
+You will need docker to run asilite.
 
 On development, run:
 
