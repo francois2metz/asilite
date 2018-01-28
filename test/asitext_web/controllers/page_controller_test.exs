@@ -38,6 +38,6 @@ defmodule AsitextWeb.PageControllerTest do
 
   test "rewrite asi-video to use iframe" do
     html = ~s(<div><asi-video class="no-remove" slug="my-video">Content</asi-video></div>)
-    assert AsitextWeb.PageController.rewrite_html(html, fn _ -> "https://exemple.net/my-video" end) == ~s(<div><iframe src="https://exemple.net/my-video" allowfullscreen="true" class="no-remove" slug="my-video">Content</iframe></div>)
+    assert AsitextWeb.PageController.rewrite_html(html, fn _ -> %{body: %{"metas" => %{"embed_url" => "https://exemple.net/my-video"}}} end) == ~s(<div><iframe src="https://exemple.net/my-video" allowfullscreen="true" class="no-remove" slug="my-video">Content</iframe></div>)
   end
 end
