@@ -193,7 +193,7 @@ defmodule AsitextWeb.PageController do
   def rewrite_tags(html, fetch_content) do
     html
     |> Floki.map(fn({name, attributes}) ->
-      class = :proplists.get_value("class", attributes)
+      class = :proplists.get_value("class", attributes, "")
       attributes2 = :proplists.delete("class", attributes)
       case name do
         "asi-image" -> {"div", [{"class", "image "<> class}|attributes2]}
