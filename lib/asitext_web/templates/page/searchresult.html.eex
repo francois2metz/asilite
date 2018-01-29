@@ -1,10 +1,10 @@
 <%= for hit <- @results["hits"]["hits"] do %>
   <div class="article">
-    <h1 class="h3"><a href="<%= hit["path"] %>"><%= title_cleanup(hit["title"]) %></a></h1>
+    <h1 class="h3"><a href="/<%= hit["path"] %>"><%= title_cleanup(hit["title"]) %></a></h1>
     <p><%= hit["tease"] %></p>
     <span>
       <%= for author <- hit["authors"] do  %>
-        <%= author["name"] %> -
+        <a href="<%= page_path(@conn, :author, author["slug"]) %>"><%= author["name"] %></a> -
       <% end %>
       <% date = Timex.parse!(hit["published_at"], "{ISO:Extended}") %>
       <%= Timex.format!(date, "{D} {Mfull} {YYYY}") %>

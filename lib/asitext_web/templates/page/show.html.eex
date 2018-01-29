@@ -2,7 +2,7 @@
   <h1 class="page-header"><%= title_cleanup(@article["title"]) %></h1>
   <span>
     <%= for author <- @article["authors"] do  %>
-      <%= author["name"] %> -
+      <a href="<%= page_path(@conn, :author, author["slug"]) %>"><%= author["name"] %></a> -
     <% end %>
     <% date = Timex.parse!(@article["published_at"], "{ISO:Extended}") %>
     <%= Timex.format!(date, "{D} {Mfull} {YYYY}") %>

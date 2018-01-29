@@ -101,3 +101,19 @@ In the query string
 **Response:**
 
     200
+
+## Get the list of authors
+
+    GET /authors
+
+**Response:**
+
+    200
+
+## Get author info
+
+    GET /authors/:slug
+
+**Response:**
+
+    200

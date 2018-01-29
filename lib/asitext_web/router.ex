@@ -29,6 +29,7 @@ defmodule AsitextWeb.Router do
     post "/login", PageController, :log
     post "/logout", PageController, :logout
     get "/search", PageController, :search
+    get "/authors/:slug", PageController, :author
     get "/:type/", PageController, :type
     get "/:type/:slug", PageController, :show
   end

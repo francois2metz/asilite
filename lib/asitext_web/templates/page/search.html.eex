@@ -1,2 +1,2 @@
 <span><%= @results["hits"]["total"] %> résultats</span>
-<%= render "searchresult.html", results: @results, start: @start, params: "&q="<> @q %>
+<%= render "searchresult.html", results: @results, start: @start, conn: @conn, params: "&q="<> @q %>
