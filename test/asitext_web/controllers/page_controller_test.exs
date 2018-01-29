@@ -16,6 +16,11 @@ defmodule AsitextWeb.PageControllerTest do
     assert AsitextWeb.PageController.rewrite_html(html, fn -> :ok end) == ~s(<div><a href="/articles/france-bleu">test</a></div>)
   end
 
+  test "remove target blank from links" do
+    html = ~s(<div><a href="/articles/2017-12-12/france-bleu" target="_blank">test</a></div>)
+    assert AsitextWeb.PageController.rewrite_html(html, fn -> :ok end) == ~s(<div><a href="/articles/france-bleu">test</a></div>)
+  end
+
   test "dont rewrite no links" do
     html = ~s(<div><a href="http://lemonde.fr/articles/2017-12-12/france-bleu">test</a></div>)
     assert AsitextWeb.PageController.rewrite_html(html, fn -> :ok end) == ~s(<div><a href="http://lemonde.fr/articles/2017-12-12/france-bleu">test</a></div>)

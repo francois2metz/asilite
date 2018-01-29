@@ -202,6 +202,7 @@ defmodule AsitextWeb.PageController do
       class = :proplists.get_value("class", attributes, "")
       attributes2 = :proplists.delete("class", attributes)
       case name do
+        "a" -> {name, :proplists.delete("target", attributes)}
         "asi-image" -> {"div", [{"class", "image "<> class}|attributes2]}
         "asi-encadre" -> {"div", [{"class", "encadre "<> class}|attributes2]}
         "asi-video" ->
