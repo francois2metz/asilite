@@ -8,19 +8,24 @@ It use the public API to fetch the content. **Nothing is stored on the server**.
 
 ## Status
 
-It's currently a proof of concept.
+It's currently working and usable.
 
 What's working:
 
-- Login
-- Listing and pagination of the content
-- Showing content
-- Displaying video
+- Login, logout
+- List and paginate content
+- Display content
+- Display video
+- Navigate content, authors
+- Search
+- RSS/Atom feeds
 
 Planned features:
 
 - Option to display the cover images
-- Support for inline video
+- Responsive inline videos (initial support is available)
+- Support old articles with inline images
+- Fix layout of old articles
 
 ## Usage
 
