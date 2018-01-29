@@ -16,6 +16,7 @@ What's working:
 - List and paginate content
 - Display content
 - Display video
+- Display inline video
 - Navigate content, authors
 - Search
 - RSS/Atom feeds
@@ -23,7 +24,6 @@ What's working:
 Planned features:
 
 - Option to display the cover images
-- Responsive inline videos (initial support is available)
 - Support old articles with inline images
 - Fix layout of old articles
 

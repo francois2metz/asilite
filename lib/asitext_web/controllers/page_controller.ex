@@ -186,7 +186,7 @@ defmodule AsitextWeb.PageController do
     |> Floki.raw_html()
   end
 
-  def rewrite_links(html) do
+  defp rewrite_links(html) do
     html
     |> Floki.attr("a", "href", fn(href) ->
       href
@@ -196,21 +196,49 @@ defmodule AsitextWeb.PageController do
     end)
   end
 
-  def rewrite_tags(html, fetch_content) do
+  defp rewrite_tags(html, fetch_content) do
     html
-    |> Floki.map(fn({name, attributes}) ->
+    |> map(fn({name, attributes, rest}) ->
       class = :proplists.get_value("class", attributes, "")
       attributes2 = :proplists.delete("class", attributes)
       case name do
-        "a" -> {name, :proplists.delete("target", attributes)}
-        "asi-image" -> {"div", [{"class", "image "<> class}|attributes2]}
-        "asi-encadre" -> {"div", [{"class", "encadre "<> class}|attributes2]}
+        "a" -> {name, :proplists.delete("target", attributes), rest}
+        "asi-image" -> {"div", [{"class", "image "<> class}|attributes2], rest}
+        "asi-encadre" -> {"div", [{"class", "encadre "<> class}|attributes2], rest}
         "asi-video" ->
           slug = :proplists.get_value("slug", attributes)
           response = fetch_content.(slug)
-          {"iframe", [{"src", response.body["metas"]["embed_url"]}, {"allowfullscreen", "true"}|attributes]}
-        _ -> {name, attributes}
+          {
+            "div",
+            [
+              {"class", "embed-responsive embed-responsive-16by9"}
+            ],
+            [
+              {
+                "iframe",
+                [
+                  {"src", response.body["metas"]["embed_url"]},
+                  {"allowfullscreen", "true"}
+                  | attributes
+                ],
+                []
+              }
+            ]
+          }
+        _ -> {name, attributes, rest}
       end
     end)
   end
+
+  def map(html, fun) when is_list(html) do
+    Enum.map(html, &map(&1, fun))
+  end
+  def map({name, attrs, rest}, fun) do
+    {new_name, new_attrs, new_rest} = fun.({name, attrs, rest})
+
+    {new_name, new_attrs, Enum.map(new_rest, &map(&1, fun))}
+  end
+
+  def map(other, _fun), do: other
+
 end
