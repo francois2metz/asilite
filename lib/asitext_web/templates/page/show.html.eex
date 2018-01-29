@@ -13,6 +13,8 @@
       <iframe src="<%= Map.get(@article, "associated_video")["metas"]["embed_url"] %>" allowfullscreen></iframe>
     </div>
     <br>
+    <a href="<%= Map.get(@article, "associated_video")["video_download_link"] %>">Télécharger la video</a>
+    <br>
   <% end %>
 
   <p><strong><%= raw @article["lead"] %></strong></p>
