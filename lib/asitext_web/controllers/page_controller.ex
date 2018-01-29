@@ -99,7 +99,7 @@ defmodule AsitextWeb.PageController do
   end
 
   def format_range(start) do
-    "objects "<> start <>" "<>  Integer.to_string(String.to_integer(start) + 10)
+    "objects "<> start <>"-"<>  Integer.to_string(String.to_integer(start) + 9)
   end
 
   def get_user_data(conn, _) do
