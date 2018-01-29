@@ -34,6 +34,12 @@ defmodule AsitextWeb.PageController do
     render conn, "show.html", article: response.body, title: title, type: type, content: rewrite_html(response.body["content"], fetch_content)
   end
 
+  def authors(conn, _params) do
+    {conn, authors} = get_asi(conn, "authors", %{}, ["Range": "object 0-9998"])
+
+    render conn, "authors.html", title: "Auteurs", authors: authors.body
+  end
+
   def author(conn, %{"slug" => slug} = params) do
     start            = Map.get(params, "start", "0")
     {conn, author}   = get_asi(conn, "authors/" <> slug)

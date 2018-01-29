@@ -1,0 +1,7 @@
+<ul>
+  <%= for author <- @authors do %>
+    <li>
+      <h1 class="h3"><a href="<%= page_path(@conn, :author, author["slug"]) %>"><%= author["name"] %></a></h1>
+    </li>
+  <% end %>
+</ul>
