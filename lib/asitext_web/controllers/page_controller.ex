@@ -12,7 +12,7 @@ defmodule AsitextWeb.PageController do
     start            = Map.get(params, "start", "0")
     {conn, response} = get_asi(conn, "search", %{}, ["Range": format_range(start)])
 
-    render conn, "list.html", title: "Accueil", results: response.body, start: start
+    render conn, "searchresult.html", title: "Accueil", results: response.body, start: start
   end
 
   def type(conn, %{"type" => type} = params) do
@@ -20,7 +20,7 @@ defmodule AsitextWeb.PageController do
     start            = Map.get(params, "start", "0")
     {conn, response} = get_asi(conn, "search", %{"format" => format}, ["Range": format_range(start)])
 
-    render conn, "list.html", title: String.capitalize(type), results: response.body, type: type, start: start
+    render conn, "searchresult.html", title: String.capitalize(type), results: response.body, type: type, start: start
   end
 
   def show(conn, %{"type" => type, "slug" => slug}) do
@@ -45,7 +45,7 @@ defmodule AsitextWeb.PageController do
     {conn, author}   = get_asi(conn, "authors/" <> slug)
     {conn, response} = get_asi(conn, "search", %{"author" => slug}, ["Range": format_range(start)])
 
-    render conn, "list.html", title: author.body["name"], results: response.body, start: start
+    render conn, "searchresult.html", title: author.body["name"], results: response.body, start: start
   end
 
   def login(conn, _params) do
