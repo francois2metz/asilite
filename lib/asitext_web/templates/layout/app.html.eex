@@ -39,16 +39,14 @@
           </ul>
           <form class="navbar-form navbar-left" action="<%= page_path(@conn, :search) %>" method="get">
             <div class="form-group">
-              <input type="text" name="q" value="<%= assigns[:q] || "" %>" class="form-control" placeholder="Recherche">
+              <input type="text" name="q" size="15" value="<%= assigns[:q] || "" %>" class="form-control" placeholder="Recherche">
             </div>
           </form>
           <ul class="nav navbar-nav navbar-right">
             <li>
               <%= if (@conn.assigns[:logged]) do %>
-                <%= form_for @conn, page_path(@conn, :logout), [class: "navbar-form no-padding-x"], fn _f -> %>
-                  <div class="form-group">
-                    <%= submit "Déconnexion", class: "btn btn-default" %>
-                  </div>
+                <%= form_for @conn, page_path(@conn, :logout), [class: "navbar-form no-padding-right"], fn _f -> %>
+                  <%= submit "Déconnexion", class: "btn btn-default" %>
                 <% end %>
               <% else %>
                 <a href="<%= page_path(@conn, :login) %>">Connexion</a>
