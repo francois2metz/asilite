@@ -28,12 +28,12 @@ defmodule AsitextWeb.PageControllerTest do
 
   test "rewrite asi-image to div" do
     html = ~s(<div><asi-image class="no-remove" slug="test">Content</asi-image></div>)
-    assert AsitextWeb.PageController.rewrite_html(html, fn -> :ok end) == ~s(<div><div class="image no-remove" slug="test">Content</div></div>)
+    assert AsitextWeb.PageController.rewrite_html(html, fn -> :ok end) == ~s(<div><div class="image no-remove" slug="test"><img src="https://api.arretsurimages.net/api/public/media/test/action/show?format=public" alt=""/></div></div>)
   end
 
   test "support rewrite asi-image to div without class" do
     html = ~s(<div><asi-image slug="test">Content</asi-image></div>)
-    assert AsitextWeb.PageController.rewrite_html(html, fn -> :ok end) == ~s(<div><div class="image " slug="test">Content</div></div>)
+    assert AsitextWeb.PageController.rewrite_html(html, fn -> :ok end) == ~s(<div><div class="image " slug="test"><img src="https://api.arretsurimages.net/api/public/media/test/action/show?format=public" alt=""/></div></div>)
   end
 
   test "rewrite asi-encadre to div" do
