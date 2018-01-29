@@ -24,7 +24,6 @@ What's working:
 Planned features:
 
 - Option to display the cover images
-- Support old articles with inline images
 - Fix layout of old articles
 
 ## Usage
