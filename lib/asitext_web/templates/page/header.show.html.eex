@@ -1,0 +1,7 @@
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@arretsurimages" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="<%= @current_url %>" />
+<meta property="og:title" content="<%= title_cleanup(@article["title"]) %>" />
+<meta property="og:description" content="<%= title_cleanup(@article["lead"]) %>" />
+<meta property="og:image" content="https://api.arretsurimages.net/api/public/media/<%= @article["thumbnail"]["slug"] %>/action/show?format=public" />

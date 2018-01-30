@@ -16,6 +16,7 @@
       analytics.page();
       }}();
     </script>
+    <%= render_existing @view_module, "header."<> @view_template, assigns %>
   </head>
 
   <body>
