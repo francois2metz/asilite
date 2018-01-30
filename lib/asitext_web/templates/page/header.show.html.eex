@@ -5,3 +5,4 @@
 <meta property="og:title" content="<%= title_cleanup(@article["title"]) %>" />
 <meta property="og:description" content="<%= title_cleanup(@article["lead"]) %>" />
 <meta property="og:image" content="https://api.arretsurimages.net/api/public/media/<%= @article["thumbnail"]["slug"] %>/action/show?format=public" />
+<link rel="canonical" href="https://beta.arretsurimages.net/<%= @type <> "/"<> @article["slug"] %>" />
