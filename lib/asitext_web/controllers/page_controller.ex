@@ -181,70 +181,82 @@ defmodule AsitextWeb.PageController do
   def rewrite_html(html, fetch_content) do
     html
     |> Floki.parse()
-    |> rewrite_links()
     |> rewrite_tags(fetch_content)
     |> Floki.raw_html()
   end
 
-  defp rewrite_links(html) do
-    html
-    |> Floki.attr("a", "href", fn(href) ->
-      href
-      |> String.replace(~r/^\/([^\/]+)\/[0-9-]+\/(.+)/, "/\\1/\\2")
-      |> String.replace(~r/https:\/\/beta.arretsurimages.net\/([^\/]+)\/[0-9-]+\/(.+)/, "/\\1/\\2")
-      |> String.replace(~r/https:\/\/beta.arretsurimages.net\/([^\/]+)\/([^\/]+)/, "/\\1/\\2")
-    end)
-  end
-
   defp rewrite_tags(html, fetch_content) do
     html
-    |> map(fn({name, attributes, rest}) ->
-      class = :proplists.get_value("class", attributes, "")
-      attributes2 = :proplists.delete("class", attributes)
-      case name do
-        "a" -> {name, :proplists.delete("target", attributes), rest}
-        "asi-image" ->
-          slug = :proplists.get_value("slug", attributes)
-          {
-            "div",
-            [
-              {"class", "image "<> class}
-              | attributes2],
-            [
-              {
-                "img",
-                [
-                  {"src", "https://api.arretsurimages.net/api/public/media/"<> slug <>"/action/show?format=public"},
-                  {"alt", ""}
-                ],
-                []
-              }
-            ]
-          }
-        "asi-encadre" -> {"div", [{"class", "encadre "<> class}|attributes2], rest}
-        "asi-video" ->
-          slug = :proplists.get_value("slug", attributes)
-          response = fetch_content.(slug)
-          {
-            "div",
-            [
-              {"class", "embed-responsive embed-responsive-16by9"}
-            ],
-            [
-              {
-                "iframe",
-                [
-                  {"src", response.body["metas"]["embed_url"]},
-                  {"allowfullscreen", "true"}
-                  | attributes
-                ],
-                []
-              }
-            ]
-          }
-        _ -> {name, attributes, rest}
-      end
-    end)
+    |> map(&rewrite_tag(&1, fetch_content))
+  end
+
+  defp rewrite_tag({"a", attributes, rest}, _) do
+    {attributes, href} = without_key(attributes, "href")
+
+    {"a", [{"href", rewrite_href(href)} | :proplists.delete("target", attributes)], rest}
+  end
+
+  defp rewrite_tag({"asi-image", attributes, _rest}, _) do
+    slug = :proplists.get_value("slug", attributes)
+    {attributes, class} = without_key(attributes, "class")
+
+    {
+      "div",
+      [{"class", "image "<> class} | attributes],
+      [
+        {
+          "img",
+          [
+            {"src", "https://api.arretsurimages.net/api/public/media/"<> slug <>"/action/show?format=public"},
+            {"alt", ""}
+          ],
+          []
+        }
+      ]
+    }
+  end
+
+  defp rewrite_tag({"asi-encadre", attributes, rest}, _) do
+    {attributes, class} = without_key(attributes, "class")
+    {"div", [{"class", "encadre "<> class} | attributes], rest}
+  end
+
+  defp rewrite_tag({"asi-video", attributes, _rest}, fetch_content) do
+    slug = :proplists.get_value("slug", attributes)
+    response = fetch_content.(slug)
+    embed_url = response.body["metas"]["embed_url"]
+    {
+      "div",
+      [{"class", "embed-responsive embed-responsive-16by9"}],
+      [
+        {
+          "iframe",
+          [
+            {"src", embed_url},
+            {"allowfullscreen", "true"}
+            | attributes
+          ],
+          []
+        }
+      ]
+    }
+  end
+
+  defp rewrite_tag(other, _) do
+    other
+  end
+
+  defp rewrite_href(href) do
+    href
+    |> String.replace(~r/^\/([^\/]+)\/[0-9-]+\/(.+)/, "/\\1/\\2")
+    |> String.replace(~r/https:\/\/beta.arretsurimages.net\/([^\/]+)\/[0-9-]+\/(.+)/, "/\\1/\\2")
+    |> String.replace(~r/https:\/\/beta.arretsurimages.net\/([^\/]+)\/([^\/]+)/, "/\\1/\\2")
+  end
+
+  defp without_key(list, key) do
+    value = :proplists.get_value(key, list, "")
+    list = :proplists.delete(key, list)
+    {list, value}
   end
 
   def map(html, fun) when is_list(html) do
