@@ -197,7 +197,7 @@ defmodule AsitextWeb.PageController do
   end
 
   defp rewrite_tag({"asi-image", attributes, _rest}, _) do
-    slug = :proplists.get_value("slug", attributes)
+    {attributes, slug} = without_key(attributes, "slug")
     {attributes, class} = without_key(attributes, "class")
 
     {
@@ -222,7 +222,7 @@ defmodule AsitextWeb.PageController do
   end
 
   defp rewrite_tag({"asi-video", attributes, _rest}, fetch_content) do
-    slug = :proplists.get_value("slug", attributes)
+    {attributes, slug} = without_key(attributes, "slug")
     response = fetch_content.(slug)
     embed_url = response.body["metas"]["embed_url"]
     {
