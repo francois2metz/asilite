@@ -29,6 +29,16 @@
   text-align: center;
   padding: 5px 0;
 }
+.article .citation {
+  position: relative;
+}
+.article .citation svg {
+  position: absolute;
+  width: 9%;
+}
+.article .citation blockquote {
+  margin-left: 11%;
+}
 .navbar-form.no-padding-right {
   padding-right: 0;
 }
