@@ -50,4 +50,9 @@ defmodule AsitextWeb.PageControllerTest do
     html = ~s(<div><asi-video class="no-remove" slug="my-video">Content</asi-video></div>)
     assert AsitextWeb.PageController.rewrite_html(html, fn _ -> %{body: %{"metas" => %{"embed_url" => "https://exemple.net/my-video"}}} end) == ~s(<div><div class="embed-responsive embed-responsive-16by9"><iframe src="https://exemple.net/my-video" allowfullscreen="true" class="no-remove"></iframe></div></div>)
   end
+
+  test "rewrite asi-citation to a div" do
+    html = ~s(<div><asi-citation class="no-remove">Content</asi-citation></div>)
+    assert AsitextWeb.PageController.rewrite_html(html, fn _ -> :ok end) == ~s(<div><div class="citation no-remove">Content</div></div>)
+  end
 end
