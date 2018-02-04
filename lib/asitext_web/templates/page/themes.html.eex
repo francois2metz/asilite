@@ -1,0 +1,7 @@
+<ul>
+  <%= for theme <- @themes do %>
+    <li>
+      <h1 class="h3"><a href="<%= page_path(@conn, :theme, theme["slug"]) %>"><%= theme["name"] %></a></h1>
+    </li>
+  <% end %>
+</ul>
