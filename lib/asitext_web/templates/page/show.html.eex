@@ -6,6 +6,9 @@
     <% end %>
     <% date = Timex.parse!(@article["published_at"], "{ISO:Extended}") %>
     <%= Timex.format!(date, "{D} {Mfull} {YYYY}") %>
+    <%= for theme <- @article["themes"] do  %>
+      - <a href="<%= page_path(@conn, :theme, theme["slug"]) %>"><%= theme["name"] %></a>
+    <% end %>
   </span>
   <h2><%= title_cleanup(@article["subtitle"]) %></h2>
   <%= if Map.has_key? @article, "associated_video" do %>
