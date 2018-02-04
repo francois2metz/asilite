@@ -31,6 +31,7 @@ defmodule AsitextWeb.Router do
     get "/search", PageController, :search
     get "/authors", PageController, :authors
     get "/authors/:slug", PageController, :author
+    get "/themes/:slug", PageController, :theme
     get "/:type/", PageController, :type
     get "/:type/:slug", PageController, :show
   end

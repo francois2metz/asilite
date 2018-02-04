@@ -48,6 +48,13 @@ defmodule AsitextWeb.PageController do
     render conn, "searchresult.html", title: author.body["name"], results: response.body, start: start
   end
 
+  def theme(conn, %{"slug" => slug} = params) do
+    start            = Map.get(params, "start", "0")
+    {conn, response} = get_asi(conn, "search", %{"theme" => slug}, ["Range": format_range(start)])
+
+    render conn, "searchresult.html", title: slug, results: response.body, start: start
+  end
+
   def login(conn, _params) do
     render conn, "login.html", title: "Connexion"
   end
