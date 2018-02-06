@@ -291,6 +291,10 @@ defmodule AsitextWeb.PageController do
     |> String.replace(~r/https:\/\/beta.arretsurimages.net\/([^\/]+)\/[0-9-]+\/(.+)/, "/\\1/\\2")
     |> String.replace(~r/https:\/\/beta.arretsurimages.net\/([^\/]+)\/([^\/]+)/, "/\\1/\\2")
     |> String.replace(~r/^\/breves\/(.+)/, "/articles/\\1")
+    |> String.replace(~r/-l-([a-zA-Z]+)/, "-l\\1")
+    |> String.replace(~r/-d-([a-zA-Z]+)/, "-d\\1")
+    |> String.replace(~r/-n-([a-zA-Z]+)/, "-n\\1")
+    |> String.replace(~r/-qu-([a-zA-Z]+)/, "-qu\\1")
   end
 
   defp without_key(list, key) do

@@ -26,6 +26,21 @@ defmodule AsitextWeb.PageControllerTest do
     assert AsitextWeb.PageController.rewrite_html(html, fn -> :ok end) == ~s(<div><a href="/articles/Des-defonces-des-cretins-et-des-causalites">test</a></div>)
   end
 
+  test "rewrite links with l'" do
+    html = ~s(<div><a href="/chroniques/2017-11-13/canal-test-l-enquete-l-enquete">test</a></div>)
+    assert AsitextWeb.PageController.rewrite_html(html, fn -> :ok end) == ~s(<div><a href="/chroniques/canal-test-lenquete-lenquete">test</a></div>)
+  end
+
+  test "rewrite links with d'" do
+    html = ~s(<div><a href="/chroniques/Reponse-d-un-boeuf-carotte-a-Cash-investigation">test</a></div>)
+    assert AsitextWeb.PageController.rewrite_html(html, fn -> :ok end) == ~s(<div><a href="/chroniques/Reponse-dun-boeuf-carotte-a-Cash-investigation">test</a></div>)
+  end
+
+  test "rewrite links with qu" do
+    html = ~s(<div><a href="/chroniques/Lobby-du-tabac-le-lievre-de-Cash-investigation-n-est-il-qu-un-lapin-bizarre">test</a></div>)
+    assert AsitextWeb.PageController.rewrite_html(html, fn -> :ok end) == ~s(<div><a href="/chroniques/Lobby-du-tabac-le-lievre-de-Cash-investigation-nest-il-quun-lapin-bizarre">test</a></div>)
+  end
+
   test "remove target blank from links" do
     html = ~s(<div><a href="/articles/2017-12-12/france-bleu" target="_blank">test</a></div>)
     assert AsitextWeb.PageController.rewrite_html(html, fn -> :ok end) == ~s(<div><a href="/articles/france-bleu">test</a></div>)
