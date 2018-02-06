@@ -184,7 +184,7 @@ defmodule AsitextWeb.PageController do
         |> get_asi(url, query, headers, retry + 1)
       404 ->
         raise Asi.NotFound
-      200 ->
+      _ ->
         {conn, response}
     end
   end
