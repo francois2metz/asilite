@@ -285,6 +285,7 @@ defmodule AsitextWeb.PageController do
   defp rewrite_href(href) do
     href
     |> String.replace(~r/^\/([^\/]+)\/[0-9-]+\/(.+)/, "/\\1/\\2")
+    |> String.replace(~r/^\/([^\/]+)\/(.+)-id[0-9]+/, "/\\1/\\2")
     |> String.replace(~r/https:\/\/beta.arretsurimages.net\/([^\/]+)\/[0-9-]+\/(.+)/, "/\\1/\\2")
     |> String.replace(~r/https:\/\/beta.arretsurimages.net\/([^\/]+)\/([^\/]+)/, "/\\1/\\2")
   end
