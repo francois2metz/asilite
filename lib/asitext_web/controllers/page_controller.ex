@@ -30,8 +30,10 @@ defmodule AsitextWeb.PageController do
       {_, response} = get_asi(conn, "media/"<> slug)
       response
     end
+    lead            = rewrite_html(response.body["lead"], fetch_content)
+    content         = rewrite_html(response.body["content"], fetch_content)
 
-    render conn, "show.html", article: response.body, title: title, type: type, content: rewrite_html(response.body["content"], fetch_content), current_url: current_url(conn)
+    render conn, "show.html", article: response.body, title: title, type: type, lead: lead, content: content, current_url: current_url(conn)
   end
 
   def authors(conn, _params) do

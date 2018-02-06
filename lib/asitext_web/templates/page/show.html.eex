@@ -20,7 +20,7 @@
     <br>
   <% end %>
 
-  <p><strong><%= raw @article["lead"] %></strong></p>
+  <p><strong><%= raw @lead %></strong></p>
   <%= raw @content %>
 </article>
 <%= unless (@conn.assigns[:logged] || @article["access_level"] == "free") do %>
