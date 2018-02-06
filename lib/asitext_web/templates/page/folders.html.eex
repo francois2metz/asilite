@@ -1,0 +1,9 @@
+<ol class="list-unstyled">
+  <%= for folder <- @folders do %>
+    <li class="article">
+      <h1 class="h3"><a href="<%= page_path(@conn, :folder, folder["slug"]) %>"><%= title_cleanup(folder["name"]) %></a></h1>
+      <p><%= folder["description"] %></p>
+    </li>
+  <% end %>
+</ol>
+<%= render "pager.html", start: @start, total: @total %>

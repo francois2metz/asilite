@@ -62,6 +62,23 @@ defmodule AsitextWeb.PageController do
     render conn, "searchresult.html", title: theme.body["name"], results: response.body, start: start
   end
 
+  def folders(conn, params) do
+    start            = Map.get(params, "start", "0")
+    {conn, response} = get_asi(conn, "dossiers", %{}, ["Range": format_range(start)])
+    [_, total]       = Regex.run(~r{objects [0-9]+-[0-9]+/([0-9]+)}, response.headers["content-range"])
+
+    render conn, "folders.html", title: "Dossiers", folders: response.body, start: start, total: total
+  end
+
+  def folder(conn, %{"slug" => slug} = params) do
+    start            = Map.get(params, "start", "0")
+    {conn, folder}   = get_asi(conn, "dossiers/" <> slug)
+    {conn, response} = get_asi(conn, "dossiers/"<> slug <>"/contents", %{}, ["Range": format_range(start)])
+    [_, total]       = Regex.run(~r{objects [0-9]+-[0-9]+/([0-9]+)}, response.headers["content-range"])
+
+    render conn, "folder.html", title: folder.body["name"], results: response.body, start: start, folder: folder.body, total: total
+  end
+
   def login(conn, _params) do
     render conn, "login.html", title: "Connexion"
   end

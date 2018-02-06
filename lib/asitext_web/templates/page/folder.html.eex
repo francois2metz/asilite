@@ -1,0 +1,6 @@
+<div class="article">
+  <h1 class="page-header"><%= title_cleanup(@folder["name"]) %></h1>
+  <p><%= title_cleanup(@folder["description"]) %></p>
+</div>
+<%= render "list_article.html", results: @results, conn: @conn %>
+<%= render "pager.html", start: @start, total: @total %>

@@ -33,6 +33,8 @@ defmodule AsitextWeb.Router do
     get "/authors/:slug", PageController, :author
     get "/themes", PageController, :themes
     get "/themes/:slug", PageController, :theme
+    get "/dossiers", PageController, :folders
+    get "/dossiers/:slug", PageController, :folder
     get "/:type/", PageController, :type
     get "/:type/:slug", PageController, :show
   end
