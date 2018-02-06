@@ -1,0 +1,15 @@
+<ul class="list-unstyled">
+  <%= for result <- @results do %>
+    <li class="article">
+      <h1 class="h3"><a href="/<%= result["path"] %>"><%= title_cleanup(result["title"]) %></a></h1>
+      <p><%= result["tease"] %></p>
+      <span>
+        <%= for author <- result["authors"] do  %>
+          <a href="<%= page_path(@conn, :author, author["slug"]) %>"><%= author["name"] %></a> -
+        <% end %>
+        <% date = Timex.parse!(result["published_at"], "{ISO:Extended}") %>
+        <%= Timex.format!(date, "{D} {Mfull} {YYYY}") %>
+    </span>
+    </li>
+  <% end %>
+</ul>

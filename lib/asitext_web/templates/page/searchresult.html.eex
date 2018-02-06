@@ -1,24 +1,2 @@
-<%= for hit <- @results["hits"]["hits"] do %>
-  <div class="article">
-    <h1 class="h3"><a href="/<%= hit["path"] %>"><%= title_cleanup(hit["title"]) %></a></h1>
-    <p><%= hit["tease"] %></p>
-    <span>
-      <%= for author <- hit["authors"] do  %>
-        <a href="<%= page_path(@conn, :author, author["slug"]) %>"><%= author["name"] %></a> -
-      <% end %>
-      <% date = Timex.parse!(hit["published_at"], "{ISO:Extended}") %>
-      <%= Timex.format!(date, "{D} {Mfull} {YYYY}") %>
-    </span>
-  </div>
-<% end %>
-<nav>
-  <ul class="pager">
-    <% params = assigns[:params] || "" %>
-    <%= if (String.to_integer(@start) > 0) do %>
-      <li><a href="?start=<%= String.to_integer(@start) - 10 %><%= params %>">Précédente page</a></li>
-    <% end %>
-    <%= if (String.to_integer(@start) + 10 < @results["hits"]["total"]) do %>
-      <li><a href="?start=<%= String.to_integer(@start) + 10 %><%= params %>">Prochaine page</a></li>
-    <% end %>
-  </ul>
-</nav>
+<%= render "list_article.html", results: @results["hits"]["hits"], conn: @conn %>
+<%= render "pager.html", start: @start, total: @results["hits"]["total"], params: assigns[:params] || "" %>

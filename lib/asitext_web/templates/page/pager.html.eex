@@ -1,0 +1,11 @@
+<nav>
+  <ul class="pager">
+    <% params = assigns[:params] || "" %>
+    <%= if (String.to_integer(@start) > 0) do %>
+      <li><a href="?start=<%= String.to_integer(@start) - 10 %><%= params %>">Précédente page</a></li>
+    <% end %>
+    <%= if (String.to_integer(@start) + 10 < @total) do %>
+      <li><a href="?start=<%= String.to_integer(@start) + 10 %><%= params %>">Prochaine page</a></li>
+    <% end %>
+  </ul>
+</nav>
