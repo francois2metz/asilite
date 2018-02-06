@@ -1,4 +1,14 @@
 defmodule Asi do
+  defmodule NotFound do
+    @moduledoc """
+    Exception raised when a 404 is returned
+    """
+    defexception plug_status: 404, message: "Not found", conn: nil, router: nil
+
+    def exception(_opts) do
+      %NotFound{message: "not found"}
+    end
+  end
   use HTTPotion.Base
 
   def process_url(url) do
