@@ -5,7 +5,7 @@
       <a href="<%= page_path(@conn, :author, author["slug"]) %>"><%= author["name"] %></a> -
     <% end %>
     <% date = Timex.parse!(@article["published_at"], "{ISO:Extended}") %>
-    <%= Timex.format!(date, "{D} {Mfull} {YYYY}") %>
+    <time datetime="<%= @article["published_at"] %>"><%= Timex.format!(date, "{D} {Mfull} {YYYY}") %></time>
     <%= for theme <- @article["themes"] do  %>
       - <a href="<%= page_path(@conn, :theme, theme["slug"]) %>"><%= theme["name"] %></a>
     <% end %>
