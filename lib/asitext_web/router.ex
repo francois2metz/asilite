@@ -14,11 +14,21 @@ defmodule AsitextWeb.Router do
     plug :fetch_session
   end
 
+  pipeline :manifest do
+    plug :accepts, ["json"]
+  end
+
   scope "/", AsitextWeb do
     pipe_through :atom
 
     get "/all.xml", PageController, :atom
     get "/xml/:type", PageController, :atom_type
+  end
+
+  scope "/", AsitextWeb do
+    pipe_through :manifest
+
+    get "/manifest.json", ManifestController, :manifest
   end
 
   scope "/", AsitextWeb do
