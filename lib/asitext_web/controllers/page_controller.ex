@@ -33,7 +33,7 @@ defmodule AsitextWeb.PageController do
     lead            = rewrite_html(response.body["lead"], fetch_content)
     content         = rewrite_html(response.body["content"], fetch_content)
 
-    render conn, "show.html", article: response.body, title: title, type: type, lead: lead, content: content, current_url: current_url(conn)
+    render conn, "show.html", article: response.body, title: title, lead: lead, content: content, current_url: current_url(conn)
   end
 
   def authors(conn, _params) do
