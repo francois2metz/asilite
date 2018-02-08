@@ -42,8 +42,8 @@ defmodule Asitext.Mixfile do
       {:poison, "~> 3.1"},
       {:timex, "~> 3.0"},
       {:basic_auth, "~> 2.2.2"},
-      {:floki, github: 'philss/floki', branch: 'master'},
-      {:distillery, "~> 1.5", runtime: false}
+      {:floki, "~> 0.20.0"},
+      {:distillery, "~> 1.5", runtime: false},
     ]
   end
 end
