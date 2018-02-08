@@ -11,9 +11,11 @@
     <% end %>
   </span>
   <h2><%= title_cleanup(@article["subtitle"]) %></h2>
-  <%= if Map.has_key? @article, "associated_video" do %>
+  <%= if Map.has_key?(@article, "associated_video")
+      && Map.has_key?(@article["associated_video"], "metas")
+      && is_map(@article["associated_video"]["metas"]) do %>
     <div class="embed-responsive embed-responsive-16by9">
-      <iframe src="<%= Map.get(@article, "associated_video")["metas"]["embed_url"] %>" allowfullscreen></iframe>
+      <iframe src="<%= @article["associated_video"]["metas"]["embed_url"] %>" allowfullscreen></iframe>
     </div>
     <br>
     <a href="<%= Map.get(@article, "associated_video")["video_download_link"] %>">Télécharger la video</a>
