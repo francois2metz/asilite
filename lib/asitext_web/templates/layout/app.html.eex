@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><%= AsitextWeb.PageView.title_cleanup(@title) %> - ASI Lite</title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
+    <link rel="shortcut icon" href="<%= static_path(@conn, "/images/favicon.png") %>">
     <link rel="manifest" href="<%= manifest_path(@conn, :manifest) %>">
     <link href="<%= page_path(@conn, :atom) %>" rel='alternate' title="Tout les contenus" type="application/atom+xml">
     <%= for {type, name} <- nav_links() do %>
