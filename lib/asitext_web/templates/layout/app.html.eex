@@ -70,7 +70,12 @@
       <br>
 
       <footer>
-        <p><a href="/dossiers">Dossiers</a> - <a href="/themes">Thèmes</a> - <a href="/authors">Auteurs</a></p>
+        <p>
+          <a href="<%= page_path(@conn, :folders) %>">Dossiers</a> -
+          <a href="<%= page_path(@conn, :themes) %>">Thèmes</a> -
+          <a href="<%= page_path(@conn, :blogs) %>">Blogs</a> -
+          <a href="<%= page_path(@conn, :authors) %>">Auteurs</a>
+        </p>
         <p>Ce site affiche les contenus d'<a href="https://arretsurimages.net/">Arrêt sur images</a> d'une manière optimisé sur mobile. Il est <a href="https://github.com/francois2metz/asilite">open-source</a> et n'est pas affilié à <a href="https://arretsurimages.net/">Arrêt sur images</a>. Créé par <a href="http://twitter.com/francois2metz">@francois2metz</a>.</p>
       </footer>
 
