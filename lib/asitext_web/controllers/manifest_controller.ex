@@ -8,7 +8,13 @@ defmodule AsitextWeb.ManifestController do
       short_name: "ASI Lite",
       start_url: "/",
       display: "standalone",
-      icons: []
+      icons: [
+        %{
+          src: "images/favicon.png",
+          sizes: "64x64",
+          type: "image/png"
+        }
+      ]
     }
     render conn, manifest: manifest
   end
