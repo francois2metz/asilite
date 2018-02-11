@@ -80,4 +80,9 @@ defmodule AsitextWeb.PageControllerTest do
     html = ~s(<div><asi-citation class="no-remove">Content</asi-citation></div>)
     assert AsitextWeb.PageController.rewrite_html(html, fn _ -> :ok end) == ~s(<div><div class="citation no-remove">Content</div></div>)
   end
+
+  test "rewrite asi-html to a div" do
+    html = ~s(<div><asi-html>Content</asi-html></div>)
+    assert AsitextWeb.PageController.rewrite_html(html, fn _ -> :ok end) == ~s(<div><div>Content</div></div>)
+  end
 end

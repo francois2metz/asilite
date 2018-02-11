@@ -256,6 +256,10 @@ defmodule AsitextWeb.PageController do
     {"div", [{"class", "encadre "<> class} | attributes], rest}
   end
 
+  defp rewrite_tag({"asi-html", attributes, rest}, _) do
+    {"div", attributes, rest}
+  end
+
   defp rewrite_tag({"asi-citation", attributes, rest}, _) do
     {attributes, class} = without_key(attributes, "class")
     {"div", [{"class", "citation "<> class} | attributes], rest}
