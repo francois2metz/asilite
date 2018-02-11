@@ -67,7 +67,7 @@ defmodule AsitextWeb.PageController do
   def folders(conn, params) do
     start            = Map.get(params, "start", "0")
     {conn, response} = get_asi(conn, "dossiers", %{}, ["Range": format_range(start)])
-    [_, total]       = Regex.run(~r{objects [0-9]+-[0-9]+/([0-9]+)}, response.headers["content-range"])
+    total            = range_to_total(response)
 
     render conn, "folders.html", title: "Dossiers", folders: response.body, start: start, total: total
   end
@@ -76,7 +76,7 @@ defmodule AsitextWeb.PageController do
     start            = Map.get(params, "start", "0")
     {conn, folder}   = get_asi(conn, "dossiers/" <> slug)
     {conn, response} = get_asi(conn, "dossiers/"<> slug <>"/contents", %{}, ["Range": format_range(start)])
-    [_, total]       = Regex.run(~r{objects [0-9]+-[0-9]+/([0-9]+)}, response.headers["content-range"])
+    total            = range_to_total(response)
 
     render conn, "folder.html", title: folder.body["name"], results: response.body, start: start, folder: folder.body, total: total
   end
@@ -133,6 +133,11 @@ defmodule AsitextWeb.PageController do
 
   def format_range(start) do
     "objects "<> start <>"-"<>  Integer.to_string(String.to_integer(start) + 9)
+  end
+
+  def range_to_total(response) do
+    [_, total]       = Regex.run(~r{objects [0-9]+-[0-9]+/([0-9]+)}, response.headers["content-range"])
+    String.to_integer(total)
   end
 
   def get_user_data(conn, _) do
