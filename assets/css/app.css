@@ -27,7 +27,7 @@
 }
 .article .image {
   text-align: center;
-  padding: 5px 0;
+  padding: 5px 0 15px;
 }
 .article .citation {
   position: relative;
