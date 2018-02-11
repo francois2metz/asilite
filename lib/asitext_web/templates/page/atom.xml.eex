@@ -10,6 +10,7 @@
     <name>Arret sur images</name>
     <uri>https://arretsurimages.net/</uri>
   </author>
+  <icon>https://asi.2metz.fr<%= static_path(@conn, "/images/favicon.png") %></icon>
 
   <%= for hit <- @results["hits"]["hits"] do %>
     <entry>
