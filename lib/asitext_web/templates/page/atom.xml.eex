@@ -6,6 +6,10 @@
   <link href="https://asi.2metz.fr/" />
   <id>https://asi.2metz.fr/</id>
   <updated><%= List.first(@results["hits"]["hits"])["updated_at"] %></updated>
+  <author>
+    <name>Arret sur images</name>
+    <uri>https://arretsurimages.net/</uri>
+  </author>
 
   <%= for hit <- @results["hits"]["hits"] do %>
     <entry>
