@@ -81,6 +81,23 @@ defmodule AsitextWeb.PageController do
     render conn, "folder.html", title: folder.body["name"], results: response.body, start: start, folder: folder.body, total: total
   end
 
+  def blogs(conn, params) do
+    start            = Map.get(params, "start", "0")
+    {conn, response} = get_asi(conn, "blogs", %{}, ["Range": format_range(start)])
+    total            = range_to_total(response)
+
+    render conn, "blogs.html", title: "Blogs", blogs: response.body, start: start, total: total
+  end
+
+  def blog(conn, %{"slug" => slug} = params) do
+    start            = Map.get(params, "start", "0")
+    {conn, blog}   = get_asi(conn, "blogs/" <> slug)
+    {conn, response} = get_asi(conn, "blogs/"<> slug <>"/contents", %{}, ["Range": format_range(start)])
+    total            = range_to_total(response)
+
+    render conn, "blog.html", title: blog.body["title"], results: response.body, start: start, blog: blog.body, total: total
+  end
+
   def login(conn, _params) do
     render conn, "login.html", title: "Connexion"
   end
