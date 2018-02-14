@@ -199,15 +199,20 @@ defmodule AsitextWeb.PageController do
   def get_asi(conn, url, query, headers, retry) do
     response = Asi.get(url, query: set_query_params(conn, query), headers: headers)
 
-    case response.status_code do
-      401 ->
-        conn
-        |> refresh_token()
-        |> get_asi(url, query, headers, retry + 1)
-      404 ->
-        raise Asi.NotFound
-      _ ->
-        {conn, response}
+    case response do
+      %HTTPotion.ErrorResponse{} ->
+        raise Asi.Error
+      %HTTPotion.Response{} ->
+        case response.status_code do
+          401 ->
+            conn
+            |> refresh_token()
+            |> get_asi(url, query, headers, retry + 1)
+          404 ->
+            raise Asi.NotFound
+          _ ->
+            {conn, response}
+        end
     end
   end
 
