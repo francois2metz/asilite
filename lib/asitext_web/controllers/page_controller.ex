@@ -91,7 +91,7 @@ defmodule AsitextWeb.PageController do
 
   def blog(conn, %{"slug" => slug} = params) do
     start            = Map.get(params, "start", "0")
-    {conn, blog}   = get_asi(conn, "blogs/" <> slug)
+    {conn, blog}     = get_asi(conn, "blogs/" <> slug)
     {conn, response} = get_asi(conn, "blogs/"<> slug <>"/contents", %{}, ["Range": format_range(start)])
     total            = range_to_total(response)
 
