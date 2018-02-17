@@ -23,6 +23,8 @@ defmodule AsitextWeb.Router do
 
     get "/all.xml", PageController, :atom
     get "/xml/:type", PageController, :atom_type
+    get "/xml/themes/:slug", PageController, :atom_themes
+    get "/xml/authors/:slug", PageController, :atom_authors
   end
 
   scope "/", AsitextWeb do

@@ -148,6 +148,18 @@ defmodule AsitextWeb.PageController do
     render conn, "atom.xml", title: String.capitalize(type), results: response.body
   end
 
+  def atom_themes(conn, %{"slug" => slug}) do
+    {conn, response} = get_asi(conn, "search", %{"theme" => slug})
+
+    render conn, "atom.xml", title: slug, results: response.body
+  end
+
+  def atom_authors(conn, %{"slug" => slug}) do
+    {conn, response} = get_asi(conn, "search", %{"author" => slug})
+
+    render conn, "atom.xml", title: slug, results: response.body
+  end
+
   def format_range(start) do
     "objects "<> start <>"-"<>  Integer.to_string(String.to_integer(start) + 9)
   end
