@@ -1,0 +1,3 @@
+<%= for author <- @authors do %>
+  <link href="<%= page_path(@conn, :atom_authors, author["slug"]) %>" rel="alternate" title="<%= author["name"] %>" type="application/atom+xml">
+<% end %>

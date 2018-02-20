@@ -1,0 +1,3 @@
+<%= for theme <- @themes do %>
+  <link href="<%= page_path(@conn, :atom_themes, theme["slug"]) %>" rel="alternate" title="<%= theme["name"] %>" type="application/atom+xml">
+<% end %>
