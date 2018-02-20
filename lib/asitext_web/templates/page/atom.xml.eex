@@ -14,7 +14,7 @@
 
   <%= for hit <- @results["hits"]["hits"] do %>
     <entry>
-      <title><%= hit["title"] %></title>
+      <title><%= title_cleanup(hit["title"]) %></title>
       <link rel="alternate" type="text/html" href="https://asi.2metz.fr/<%= hit["path"] %>"/>
       <id>urn:uuid:<%= hit["uuid"] %></id>
       <published><%= hit["published_at"] %></published>
