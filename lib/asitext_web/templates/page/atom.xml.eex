@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>ASI Lite - <%= @title %></title>
   <subtitle>Arret sur images</subtitle>
-  <link href="https://asi.2metz.fr/all.xml" rel="self" />
+  <link href="<%= @current_url %>" rel="self" />
   <link href="https://asi.2metz.fr/" />
   <id>https://asi.2metz.fr/</id>
   <updated><%= List.first(@results["hits"]["hits"])["updated_at"] %></updated>
