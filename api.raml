@@ -1,0 +1,112 @@
+#%RAML 1.0
+---
+title: Arrêt sur images API
+baseUri: https://api.arretsurimages.net/api/public/
+
+securitySchemes:
+  oauth_2_0:
+    type: OAuth 2.0
+    describedBy:
+      queryParameters:
+        access_token:
+          description: |
+             Used to send a valid OAuth 2 access token.
+          type: string
+      responses:
+        401:
+          description: |
+              Bad or expired token. This can happen if the user or Dropbox
+              revoked or expired an access token. To fix, re-authenticate
+              the user.
+    settings:
+      accessTokenUri: https://api.arretsurimages.net/oauth/v2/token
+      authorizationGrants: [ client_credentials ]
+
+traits:
+  paginate:
+    headers:
+      range:
+        required: false
+        example: object 10-19
+
+/media/{mediaName}:
+  get:
+    responses:
+      200:
+
+/search:
+  get:
+    is: [ paginate ]
+    queryParameters:
+      format:
+        type: string
+        required: false
+        example: chronique
+      theme:
+        type: string
+        required: false
+      q:
+        description: the query
+        type: string
+        required: false
+    responses:
+      206:
+        headers:
+          Content-Range:
+            description: the range available
+            example: 'Content-Range: objects 10-1987'
+
+/contents/{type}/{slug}:
+  get:
+    responses:
+      200:
+
+/authors:
+  get:
+    is: [ paginate ]
+  /{authorName}:
+    get:
+      is: [ paginate ]
+      responses:
+        200:
+
+/themes:
+  get:
+    is: [ paginate ]
+    responses:
+      200:
+  /{themeName}:
+    get:
+      is: [ paginate ]
+      responses:
+        200:
+
+/dossiers:
+  get:
+    is: [ paginate ]
+    responses:
+      200:
+  /{dossierName}:
+    get:
+      responses:
+          200:
+    /contents:
+      get:
+        is: [ paginate ]
+        responses:
+          200:
+
+/blogs:
+  get:
+    is: [ paginate ]
+    responses:
+      200:
+  /{blogName}:
+    get:
+      responses:
+        200:
+    /contents:
+      is: [ paginate ]
+      get:
+        responses:
+          200:
