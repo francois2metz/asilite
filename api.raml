@@ -1,6 +1,6 @@
 #%RAML 1.0
 ---
-title: Arrêt sur images API
+title: Arrêt sur images
 baseUri: https://api.arretsurimages.net/api/public/
 
 securitySchemes:
@@ -15,9 +15,7 @@ securitySchemes:
       responses:
         401:
           description: |
-              Bad or expired token. This can happen if the user or Dropbox
-              revoked or expired an access token. To fix, re-authenticate
-              the user.
+            Token expiré. Vous devez rafraichir le token ou bien vous reconnectez.
     settings:
       accessTokenUri: https://api.arretsurimages.net/oauth/v2/token
       authorizationGrants: [ client_credentials ]
@@ -28,6 +26,45 @@ traits:
       range:
         required: false
         example: object 10-19
+
+types:
+  Dossier:
+    type: object
+    properties:
+      name:
+        required: true
+        type: string
+      slug:
+        required: true
+        type: string
+      description:
+        required: true
+        type: string
+    example: |
+      {
+        "slug": "folder-name",
+        "name": "Folder name",
+        "description": "The description of the folder"
+      }
+
+  Dossiers:
+    type: Dossier[]
+
+  Blog:
+    type: object
+    properties:
+      title:
+        required: true
+        type: string
+      slug:
+        required: true
+        type: string
+      description:
+        required: true
+        type: string
+
+  Blogs:
+    type: Blog[]
 
 /media/{mediaName}:
   get:
@@ -64,6 +101,7 @@ traits:
 /authors:
   get:
     is: [ paginate ]
+
   /{authorName}:
     get:
       is: [ paginate ]
@@ -75,6 +113,7 @@ traits:
     is: [ paginate ]
     responses:
       200:
+
   /{themeName}:
     get:
       is: [ paginate ]
@@ -86,10 +125,18 @@ traits:
     is: [ paginate ]
     responses:
       200:
+        body:
+          application/json:
+            type: Dossiers
+
   /{dossierName}:
     get:
       responses:
           200:
+            body:
+              application/json:
+                type: Dossier
+
     /contents:
       get:
         is: [ paginate ]
@@ -101,10 +148,18 @@ traits:
     is: [ paginate ]
     responses:
       200:
+        body:
+          application/json:
+            type: Blogs
+
   /{blogName}:
     get:
       responses:
         200:
+          body:
+              application/json:
+                type: Blog
+
     /contents:
       is: [ paginate ]
       get:
