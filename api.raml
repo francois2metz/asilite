@@ -256,9 +256,152 @@ types:
 
   Author:
     type: object
+    properties:
+      uuid:
+        required: true
+        type: string
+      slug:
+        required: true
+        type: string
+      name:
+        required: true
+        type: string
+      twitter_nickname:
+        required: true
+        type: string
+      is_online:
+        required: true
+        type: boolean
+      picture:
+        required: true
+        type: Media
+      blogs:
+        required: false
+        type: Blogs
+    example: |
+      {
+        "blogs": [
+          {
+            "thumbnail": {
+              "name": "daniel-bis",
+              "description": "",
+              "mime_type": "image/jpeg",
+              "extension": "jpg",
+              "provider": "image",
+              "updated_at": "2017-12-07T19:55:34+01:00",
+              "uuid": "ac9e0202-170b-4f23-837e-189f629e58e6",
+              "slug": "daniel-bis",
+              "mimeType": "image/jpeg"
+            },
+            "title": "Initiales DS",
+            "is_archive": false,
+            "is_online": true,
+            "created_at": "2017-10-17T17:43:00+02:00",
+            "uuid": "57dc57e1-d1b4-447d-9d3b-5a6da4002b77",
+            "slug": "initiales-ds"
+          },
+          {
+            "thumbnail": {
+              "name": "DANIEL Matinaute Bannière",
+              "description": "",
+              "mime_type": "image/png",
+              "extension": "png",
+              "provider": "image",
+              "updated_at": "2017-11-23T18:36:32+01:00",
+              "uuid": "89d8abf4-3b8b-4453-9776-8efa5ab91303",
+              "slug": "daniel-matinaute-banniere",
+              "mimeType": "image/png"
+            },
+            "title": "Le matinaute",
+            "is_archive": false,
+            "is_online": true,
+            "created_at": "2017-10-17T17:43:00+02:00",
+            "uuid": "e4cbc781-c888-4f50-893c-3e1979b73ee7",
+            "slug": "le-matinaute"
+          }
+        ],
+        "picture": {
+          "name": "daniel",
+          "description": "",
+          "mime_type": "image/png",
+          "extension": "png",
+          "provider": "image",
+          "updated_at": "2017-12-06T18:15:55+01:00",
+          "uuid": "e8e4e525-ceaf-4192-bab6-b861822ee26d",
+          "slug": "daniel-2",
+          "mimeType": "image/png"
+        },
+        "name": "Daniel Schneidermann",
+        "twitter_nickname": "d_schneidermann",
+        "is_online": true,
+        "uuid": "e322813c-1f85-407f-85d2-354f10afe2e6",
+        "slug": "daniel-schneidermann"
+      }
+
 
   Authors:
     type: Author[]
+    example: |
+      [
+        {
+          "picture": {
+            "name": "daniel",
+            "description": "",
+            "mime_type": "image/png",
+            "extension": "png",
+            "provider": "image",
+            "updated_at": "2017-12-06T18:15:55+01:00",
+            "uuid": "e8e4e525-ceaf-4192-bab6-b861822ee26d",
+            "slug": "daniel-2",
+            "mimeType": "image/png"
+          },
+          "name": "Daniel Schneidermann",
+          "twitter_nickname": "d_schneidermann",
+          "is_online": true,
+          "uuid": "e322813c-1f85-407f-85d2-354f10afe2e6",
+          "slug": "daniel-schneidermann"
+        }
+      ]
+
+  Theme:
+    type: object
+    properties:
+      uuid:
+        required: true
+        type: string
+      name:
+        required: true
+        type: string
+      slug:
+        required: true
+        type: string
+      is_online:
+        required: true
+        type: boolean
+      sortable_rank:
+        required: true
+        type: integer
+    example: |
+     {
+       "name": "Intox & infaux",
+       "is_online": true,
+       "sortable_rank": 1,
+       "uuid": "ac8a59b5-01ba-44fc-8896-b0d1d1888bff",
+       "slug": "intox-infaux"
+     }
+
+  Themes:
+    type: Theme[]
+    example: |
+      [
+        {
+          "name": "Intox & infaux",
+          "is_online": true,
+          "sortable_rank": 1,
+          "uuid": "ac8a59b5-01ba-44fc-8896-b0d1d1888bff",
+          "slug": "intox-infaux"
+        }
+      ]
 
   Content:
     type: object
@@ -287,6 +430,9 @@ types:
       blog:
         required: false
         type: Blog
+      themes:
+        required: false
+        type: Themes
       is_elected:
         required: true
         type: boolean
@@ -416,6 +562,9 @@ types:
       theme:
         type: string
         required: false
+      author:
+        type: string
+        required: false
       q:
         description: the query
         type: string
@@ -431,28 +580,51 @@ types:
   get:
     responses:
       200:
+        body:
+          application/json:
+            type: Contents
 
 /authors:
   get:
     is: [ paginate ]
+    responses:
+      200:
+        headers:
+          Content-Range:
+            description: the range available
+            example: 'Content-Range: objects 10-1987'
+        body:
+          application/json:
+            type: Authors
 
   /{authorName}:
     get:
-      is: [ paginate ]
       responses:
         200:
+          body:
+            application/json:
+              type: Author
 
 /themes:
   get:
     is: [ paginate ]
     responses:
       200:
+        headers:
+          Content-Range:
+            description: the range available
+            example: 'Content-Range: objects 10-1987'
+        body:
+          application/json:
+            type: Themes
 
   /{themeName}:
     get:
-      is: [ paginate ]
       responses:
         200:
+          body:
+            application/json:
+                type: Theme
 
 /dossiers:
   get:
