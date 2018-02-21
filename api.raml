@@ -136,7 +136,7 @@ types:
         required: true
         type: string
       extension:
-        required: true
+        required: false
         type: string
       provider:
         required: true
@@ -151,8 +151,29 @@ types:
         required: true
         type: string
       mimeType:
-        required: true
+        required: false
         type: string
+      reference_url:
+        required: false
+        type: string
+      video_download_link:
+        required: false
+        type: string
+      video_duration:
+        required: false
+        type: integer
+      cover:
+        required: false
+        type: Media
+      metas:
+        required: false
+        type: object
+      tags:
+        required: false
+        type: array
+      themes:
+        required: false
+        type: array
 
   Blog:
     type: object
