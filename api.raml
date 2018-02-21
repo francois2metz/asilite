@@ -23,7 +23,7 @@ securitySchemes:
 traits:
   paginate:
     headers:
-      range:
+      Range:
         required: false
         example: object 10-19
 
@@ -31,6 +31,9 @@ types:
   Dossier:
     type: object
     properties:
+      uuid:
+        required: true
+        type: string
       name:
         required: true
         type: string
@@ -40,19 +43,123 @@ types:
       description:
         required: true
         type: string
+      content_count:
+        required: true
+        type: integer
+      first_publication_at:
+        required: true
+        type: datetime
+      is_online:
+        type: boolean
+        required: true
+      creator:
+        required: false
+        type: object
+      cover:
+        required: true
+        type: Media
+      themes:
+        required: false
+        type: array
     example: |
       {
-        "slug": "folder-name",
-        "name": "Folder name",
-        "description": "The description of the folder"
+        "creator": {
+          "nickname": "admin",
+          "uuid": "3ee26ec9-82b0-49d6-b395-33ac8f6ee501"
+        },
+        "cover": {
+          "name": "classe télé",
+          "description": "",
+          "mime_type": "image/png",
+          "extension": "png",
+          "provider": "image",
+          "updated_at": "2017-12-15T10:09:33+01:00",
+          "uuid": "02b89515-341e-4b0d-8fe4-32046f656fca",
+          "slug": "classe-tele-3",
+          "mimeType": "image/png"
+        },
+        "themes": [
+          {
+            "name": "Pédagogie & éducation",
+            "is_online": true,
+            "sortable_rank": 13,
+            "uuid": "bb47040c-3e08-496f-8b68-67f20f0c1731",
+            "slug": "education"
+          }
+        ],
+        "name": "Classe télé&nbsp;: les collégiens démontent l'actu",
+        "description": "Pub déguisée sur Twitter, mise en scène de François Hollande avec une retraitée ou rumeurs sur les migrants qui circulent sur le web : comment réagissent des collégiens face aux manipulations médiatiques ? C'est l'objet de nos \"Classe télé\" tournées au collège Gérard Philipe, à Paris.",
+        "is_online": true,
+        "uuid": "6318fe62-76f1-44a9-bfae-2f764583f772",
+        "slug": "classe-tele-nbsp-les-collegiens-demontent-lactu",
+        "first_publication_at": "2015-06-01T17:21:23+02:00",
+        "content_count": 32
       }
+
 
   Dossiers:
     type: Dossier[]
+    example: |
+      [
+        {
+          "cover": {
+            "name": "classe télé",
+            "description": "",
+            "mime_type": "image/png",
+            "extension": "png",
+            "provider": "image",
+            "updated_at": "2017-12-15T10:09:33+01:00",
+            "uuid": "02b89515-341e-4b0d-8fe4-32046f656fca",
+            "slug": "classe-tele-3",
+            "mimeType": "image/png"
+          },
+          "name": "Classe télé&nbsp;: les collégiens démontent l'actu",
+          "description": "Pub déguisée sur Twitter, mise en scène de François Hollande avec une retraitée ou rumeurs sur les migrants qui circulent sur le web : comment réagissent des collégiens face aux manipulations médiatiques ? C'est l'objet de nos \"Classe télé\" tournées au collège Gérard Philipe, à Paris.",
+          "is_online": true,
+          "uuid": "6318fe62-76f1-44a9-bfae-2f764583f772",
+          "slug": "classe-tele-nbsp-les-collegiens-demontent-lactu",
+          "first_publication_at": "2015-06-01 17:21:23",
+          "content_count": 32
+        }
+      ]
+
+  Media:
+    type: object
+    properties:
+      name:
+        required: true
+        type: string
+      description:
+        required: false
+        type: string
+      mime_type:
+        required: true
+        type: string
+      extension:
+        required: true
+        type: string
+      provider:
+        required: true
+        type: string
+      updated_at:
+        required: true
+        type: datetime
+      uuid:
+        required: true
+        type: string
+      slug:
+        required: true
+        type: string
+      mimeType:
+        required: true
+        type: string
 
   Blog:
     type: object
     properties:
+      uuid:
+        required: true
+        type: string
       title:
         required: true
         type: string
@@ -60,11 +167,238 @@ types:
         required: true
         type: string
       description:
-        required: true
+        required: false
         type: string
+      created_at:
+        required: true
+        type: datetime
+      first_publication_at:
+        required: false
+        type: datetime
+      last_publication_at:
+        required: false
+        type: datetime
+      is_archive:
+        required: true
+        type: boolean
+      is_online:
+        required: true
+        type: boolean
+      thumbnail:
+        required: true
+        type: Media
+      cover:
+        required: false
+        type: Media
+      themes:
+        required: false
+        type: array
+    example: |
+      {
+        "themes": [],
+        "cover": {
+          "name": "390x390_0000_DANIEL-02",
+          "description": "",
+          "mime_type": "image/png",
+          "extension": "png",
+          "provider": "image",
+          "updated_at": "2017-12-18T16:38:01+01:00",
+          "uuid": "125bc6f3-1878-4880-9f3f-7a97582540f2",
+          "slug": "390x390_0000_daniel-02",
+          "mimeType": "image/png"
+        },
+        "thumbnail": {
+          "name": "DANIEL Matinaute Bannière",
+          "description": "",
+          "mime_type": "image/png",
+          "extension": "png",
+          "provider": "image",
+          "updated_at": "2017-11-23T18:36:32+01:00",
+          "uuid": "89d8abf4-3b8b-4453-9776-8efa5ab91303",
+          "slug": "daniel-matinaute-banniere",
+          "mimeType": "image/png"
+        },
+        "title": "Le matinaute",
+        "is_archive": false,
+        "is_online": true,
+        "created_at": "2017-10-17T17:43:00+02:00",
+        "uuid": "e4cbc781-c888-4f50-893c-3e1979b73ee7",
+        "slug": "le-matinaute",
+        "first_publication_at": "2008-06-16T09:32:58+02:00",
+        "last_publication_at": "2018-02-21 10:34:47"
+      }
 
   Blogs:
     type: Blog[]
+    example: |
+      [
+          {
+            "thumbnail": {
+              "name": "DANIEL Matinaute Bannière",
+              "description": "",
+              "mime_type": "image/png",
+              "extension": "png",
+              "provider": "image",
+              "updated_at": "2017-11-23T18:36:32+01:00",
+              "uuid": "89d8abf4-3b8b-4453-9776-8efa5ab91303",
+              "slug": "daniel-matinaute-banniere",
+              "mimeType": "image/png"
+            },
+            "title": "Le matinaute",
+            "is_archive": false,
+            "is_online": true,
+            "created_at": "2017-10-17T17:43:00+02:00",
+            "uuid": "e4cbc781-c888-4f50-893c-3e1979b73ee7",
+            "slug": "le-matinaute",
+            "last_publication_at": "2018-02-21 10:34:47"
+          }
+      ]
+
+  Author:
+    type: object
+
+  Authors:
+    type: Author[]
+
+  Content:
+    type: object
+    properties:
+      uuid:
+        required: true
+        type: string
+      slug:
+        required: true
+        type: string
+      path:
+        required: true
+        type: string
+      title:
+        required: true
+        type: string
+      lead:
+        required: true
+        type: string
+      subtitle:
+        required: true
+        type: string
+      tease:
+        required: true
+        type: string
+      blog:
+        required: false
+        type: Blog
+      is_elected:
+        required: true
+        type: boolean
+      access_level:
+        required: true
+        type: string
+      current_access_level:
+        required: true
+        type: string
+      status:
+        required: true
+        type: string
+      published_at:
+        required: true
+        type: datetime
+      last_version_at:
+        required: true
+        type: datetime
+      created_at:
+        required: true
+        type: datetime
+      updated_at:
+        required: true
+        type: datetime
+      authors:
+        required: true
+        type: Authors
+      thumbnail:
+        required: true
+        type: Media
+    example: |
+      {
+        "thumbnail": {
+          "name": "Wauquiez Elkrief",
+          "mime_type": "image/jpeg",
+          "extension": "jpg",
+          "provider": "image",
+          "updated_at": "2018-02-21T09:26:07+01:00",
+          "uuid": "851c3ccf-a3db-4944-8b89-e0902e65be4e",
+          "slug": "wauquiez-elkrief",
+          "mimeType": "image/jpeg"
+        },
+        "blog": {
+          "thumbnail": {
+            "name": "DANIEL Matinaute Bannière",
+            "description": "",
+            "mime_type": "image/png",
+            "extension": "png",
+            "provider": "image",
+            "updated_at": "2017-11-23T18:36:32+01:00",
+            "uuid": "89d8abf4-3b8b-4453-9776-8efa5ab91303",
+            "slug": "daniel-matinaute-banniere",
+            "mimeType": "image/png"
+          },
+          "title": "Le matinaute",
+          "is_archive": false,
+          "is_online": true,
+          "created_at": "2017-10-17T17:43:00+02:00",
+          "uuid": "e4cbc781-c888-4f50-893c-3e1979b73ee7",
+          "slug": "le-matinaute"
+        },
+        "title": "Le vrai bullshit : la feuille de paie ?",
+        "is_elected": false,
+        "access_level": "free",
+        "status": "published",
+        "published_at": "2018-02-21T09:23:05+01:00",
+        "last_version_at": "2018-02-21T10:34:47+01:00",
+        "created_at": "2018-02-21T08:18:31+01:00",
+        "updated_at": "2018-02-21T10:36:39+01:00",
+        "uuid": "4f590149-9ea7-4b28-a7e3-11535abbf12c",
+        "slug": "le-vrai-bullshit-la-feuille-de-paie",
+        "authors": [
+          {
+            "picture": {
+              "name": "daniel",
+              "description": "",
+              "mime_type": "image/png",
+              "extension": "png",
+              "provider": "image",
+              "updated_at": "2017-12-06T18:15:55+01:00",
+              "uuid": "e8e4e525-ceaf-4192-bab6-b861822ee26d",
+              "slug": "daniel-2",
+              "mimeType": "image/png"
+            },
+            "name": "Daniel Schneidermann",
+            "twitter_nickname": "d_schneidermann",
+            "is_online": true,
+            "uuid": "e322813c-1f85-407f-85d2-354f10afe2e6",
+            "slug": "daniel-schneidermann"
+          }
+        ],
+        "lead": "",
+        "subtitle": "",
+        "tease": "Résumons. Laurent Wauquiez a fâché le MEDEF. Wauquiez a courroucé Christophe Barbier. Wauquiez vient triomphalement bullshiter Ruth Elkrief. \"Vous savez ce que je crois, Ruth Elkrief ?\" \"Vous m'autori...",
+        "current_access_level": "free",
+        "content_type": {
+          "content_format": {
+            "label": "Chronique",
+            "uuid": "e912c0ec-e807-4d61-b0ee-26867e1afc59",
+            "slug": "chronique",
+            "plural": "chroniques"
+          },
+          "label": "chronique",
+          "is_default": false,
+          "uuid": "a7544def-07ce-4cff-b8b8-daf154b967c5",
+          "slug": "chronique"
+        },
+        "path": "chroniques/le-vrai-bullshit-la-feuille-de-paie"
+      }
+
+  Contents:
+    type: Content[]
 
 /media/{mediaName}:
   get:
@@ -125,6 +459,10 @@ types:
     is: [ paginate ]
     responses:
       200:
+        headers:
+          Content-Range:
+            description: the range available
+            example: 'Content-Range: objects 10-1987'
         body:
           application/json:
             type: Dossiers
@@ -142,12 +480,23 @@ types:
         is: [ paginate ]
         responses:
           200:
+            headers:
+              Content-Range:
+                description: the range available
+                example: 'Content-Range: objects 10-1987'
+            body:
+              application/json:
+                type: Contents
 
 /blogs:
   get:
     is: [ paginate ]
     responses:
       200:
+        headers:
+          Content-Range:
+            description: the range available
+            example: 'Content-Range: objects 10-1987'
         body:
           application/json:
             type: Blogs
@@ -165,3 +514,10 @@ types:
       get:
         responses:
           200:
+            headers:
+              Content-Range:
+                description: the range available
+                example: 'Content-Range: objects 10-1987'
+            body:
+              application/json:
+                type: Contents
