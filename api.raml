@@ -734,12 +734,15 @@ types:
             type: SearchResult
 
 /contents/{type}/{slug}:
+  uriParameters:
+    type:
+    slug:
   get:
     responses:
       200:
         body:
           application/json:
-            type: Contents
+            type: Content
 
 /authors:
   get:
