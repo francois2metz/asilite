@@ -132,6 +132,12 @@ types:
       description:
         required: false
         type: string
+      origin:
+        required: false
+        type: string
+      copyright:
+        required: false
+        type: string
       mime_type:
         required: true
         type: string
@@ -484,6 +490,9 @@ types:
       thumbnail:
         required: true
         type: Media
+      content_type:
+        required: true
+        type: object
     example: |
       {
         "thumbnail": {
@@ -567,6 +576,130 @@ types:
   Contents:
     type: Content[]
 
+  Hits:
+    type: object
+    properties:
+      total:
+        required: true
+        type: integer
+      hits:
+        required: true
+        type: Contents
+
+  SearchResult:
+    type: object
+    properties:
+      aggregations:
+        type: object
+      hits:
+        type: Hits
+    example: |
+      {
+       "aggregations": {
+         "themes": [
+           {
+             "key": "medias-traditionnels",
+             "doc_count": 50
+           }
+         ],
+         "year": [
+           {
+             "key": 2017,
+             "doc_count": 357
+           }
+         ],
+         "universe": [
+           {
+             "key": "texte",
+             "doc_count": 460
+           },
+           {
+             "key": "video",
+             "doc_count": 96
+           }
+         ],
+         "content_format": [
+           {
+             "key": "article",
+             "doc_count": 313
+           }
+         ],
+         "authors": [
+           {
+             "key": "daniel-schneidermann",
+             "doc_count": 171
+           }
+         ],
+         "dossiers": 4
+       },
+       "hits": {
+         "total": 556,
+         "hits": [
+           {
+             "thumbnail": {
+               "name": "Palais de l'Elysée et rue de l'Elysée",
+               "origin": "Google Maps",
+               "mime_type": "image/jpeg",
+               "extension": "jpg",
+               "copyright": "Google Maps",
+               "provider": "image",
+               "updated_at": "2018-02-16T18:12:45+01:00",
+               "uuid": "cb61beff-587b-480b-be49-7a45e9b5f444",
+               "slug": "palais-de-lelysee-et-rue-de-lelysee",
+               "mimeType": "image/jpeg"
+             },
+             "title": "L'Elysée veut exiler les journalistes hors du palais",
+             "is_elected": false,
+             "access_level": "subscribed",
+             "status": "published",
+             "published_at": "2018-02-19T10:12:19+01:00",
+             "last_version_at": "2018-02-19T10:12:19+01:00",
+             "created_at": "2018-02-16T16:31:51+01:00",
+             "updated_at": "2018-02-19T16:16:52+01:00",
+             "uuid": "94d8c4f8-71b5-4994-96ab-392873fa42d2",
+             "slug": "lelysee-veut-exiler-les-journalistes-hors-du-palais",
+             "authors": [
+               {
+                 "picture": {
+                   "name": "juliette.png",
+                   "description": "",
+                   "mime_type": "image/png",
+                   "extension": "png",
+                   "provider": "image",
+                   "updated_at": "2017-12-06T18:21:14+01:00",
+                   "uuid": "87976bbe-3553-4c85-9d91-4875a91367f0",
+                   "slug": "juliette-png",
+                   "mimeType": "image/png"
+                 },
+                 "name": "Juliette Gramaglia",
+                 "twitter_nickname": "jltlia",
+                 "is_online": true,
+                 "uuid": "f78e5277-0cc0-4a94-a5de-64f97d1ab8ea",
+                 "slug": "juliette-gramaglia"
+               }
+             ],
+             "lead": "Et encore un tour de vis, hautement symbolique. La communication du président a fait savoir qu'elle déménagerait d'ici à l'été la salle de presse en dehors de l'enceinte du palais de l'Elysée. Désormais, les agences de presse, qui y ont un accès permanent, et les autres journalistes, qui y ont accès lors des événements officiels, seront rue de l'Elysée. Mais que voyaient donc les agences de presse dans cette cour de l'Elysée ?",
+             "subtitle": "\"Macron ne veut pas qu'on puisse décrire la tête qu'il fait tel ou tel jour\"",
+             "tease": "C'est une décision \"unilatérale\" et prise \"sans concertation\". Les mots sont des conseillers en communication d'Emmanuel Macron, mercredi 14 février. L'Elysée a décidé, avec l'aval du président, de dé...",
+             "current_access_level": "subscribed",
+             "content_type": {
+               "content_format": {
+                 "label": "Article",
+                 "uuid": "ad473a5a-1319-4c4e-8bfd-488203ded0c4",
+                 "slug": "article",
+                 "plural": "articles"
+               },
+               "label": "article",
+               "is_default": true,
+               "uuid": "8a54d7c0-5ea4-4e68-9bb1-fa024621cc47",
+               "slug": "article"
+             },
+             "path": "articles/lelysee-veut-exiler-les-journalistes-hors-du-palais"
+           }
+         ]
+       }
+      }
+
 /media/{mediaName}:
   get:
     responses:
@@ -596,6 +729,9 @@ types:
           Content-Range:
             description: the range available
             example: 'Content-Range: objects 10-1987'
+        body:
+          application/json:
+            type: SearchResult
 
 /contents/{type}/{slug}:
   get:
