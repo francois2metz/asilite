@@ -51,6 +51,10 @@ defmodule Asi.HTML do
     {"div", [{"class", "citation "<> class} | attributes], rest}
   end
 
+  defp rewrite_tag({"read-more", _attributes, _rest}, _) do
+    {"div", [], []}
+  end
+
   defp rewrite_tag({"asi-video", attributes, _rest}, fetch_content) do
     {attributes, slug} = without_key(attributes, "slug")
     response = fetch_content.(slug)

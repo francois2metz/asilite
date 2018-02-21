@@ -85,4 +85,9 @@ defmodule Asi.HTMLTest do
     html = ~s(<div><asi-html>Content</asi-html></div>)
     assert Asi.HTML.rewrite_html(html, fn _ -> :ok end) == ~s(<div><div>Content</div></div>)
   end
+
+  test "remove read-more" do
+    html = ~s(<div><read-more type="content" slug="test">Content</read-more></div>)
+    assert Asi.HTML.rewrite_html(html, fn _ -> :ok end) == ~s(<div><div></div></div>)
+  end
 end
