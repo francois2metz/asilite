@@ -825,10 +825,14 @@ types:
           application/json:
             type: Content
 
-  /votes/can_vote:
-    get:
-      responses:
-        204:
+  /votes:
+    post:
+
+    /can_vote:
+      get:
+        responses:
+          204:
+          403:
 
   /rebounds:
     get:
@@ -973,4 +977,3 @@ types:
     put:
       responses:
         204:
-        comments/stats?access_token=NmEwNGRmZjRlOWQwODlhYTQxNDE1ZDMwYzgxYmQ3MWJlM2VmNzFkMmI4N2VmZDg4NzRiNDQ3YTY1Y2Q1Zjk4NQ

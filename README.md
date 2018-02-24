@@ -42,6 +42,7 @@ Here is the list of unexpected behavior of the API:
 
 - The `Range` header on search results only accept `0 9`, `10 19` and not arbitrary range.
 - The search endpoint ignore parameters if invalid.
+- Some date are not formatted correctly
 
 ## Acknowledgement
 
