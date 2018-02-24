@@ -496,6 +496,9 @@ types:
       content_type:
         required: true
         type: object
+      comment_number:
+        required: false
+        type: integer
     example: |
       {
         "thumbnail": {
@@ -703,6 +706,81 @@ types:
        }
       }
 
+  CommentAuthor:
+    type: object
+    properties:
+      nickname:
+        required: true
+        type: string
+      uuid:
+        required: true
+        type: string
+      status:
+        required: true
+        type: string
+
+  Comment:
+    type: object
+    properties:
+      author:
+        required: true
+        type: CommentAuthor
+      message:
+        required: true
+        type: string
+      created_at:
+        required: true
+        type: datetime
+      updated_at:
+        required: true
+        type: datetime
+      uuid:
+        required: true
+        type: string
+      has_answers:
+        required: true
+        type: integer
+      like_answers:
+        required: true
+        type: integer
+
+  Comments:
+    type: Comment[]
+
+  Profile:
+    type: object
+    properties:
+      authors:
+        required: true
+        type: array
+      email:
+        required: true
+        type: string
+      nickname:
+        required: true
+        type: string
+      lastname:
+        required: true
+        type: string
+      sponsorship_total:
+        required: true
+        type: integer
+      sponsorship_used:
+        required: true
+        type: integer
+      subscription_end_at:
+        required: true
+        type: datetime
+      uuid:
+        required: true
+        type: string
+      gazette_subscription:
+        required: true
+        type: array
+      roles:
+        required: true
+        type: array
+
 /media/{mediaName}:
   get:
     responses:
@@ -746,6 +824,25 @@ types:
         body:
           application/json:
             type: Content
+
+  /votes/can_vote:
+    get:
+      responses:
+        204:
+
+  /rebounds:
+    get:
+      responses:
+        200:
+
+  /comments:
+    get:
+      is: [ paginate ]
+      responses:
+        200:
+          body:
+            application/json:
+              type: Comments
 
 /authors:
   get:
@@ -856,3 +953,24 @@ types:
             body:
               application/json:
                 type: Contents
+
+/profile:
+  get:
+    responses:
+      200:
+        body:
+          application/json:
+            type: Profile
+
+  /contents/{slug}/comments:
+    /visited:
+      put:
+
+    /comments/status:
+      get:
+
+  /comments/{uuid}/like:
+    put:
+      responses:
+        204:
+        comments/stats?access_token=NmEwNGRmZjRlOWQwODlhYTQxNDE1ZDMwYzgxYmQ3MWJlM2VmNzFkMmI4N2VmZDg4NzRiNDQ3YTY1Y2Q1Zjk4NQ
