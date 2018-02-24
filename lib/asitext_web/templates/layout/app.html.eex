@@ -77,7 +77,7 @@
           <a href="<%= page_path(@conn, :blogs) %>">Blogs</a> -
           <a href="<%= page_path(@conn, :authors) %>">Auteurs</a>
         </p>
-        <p>Ce site affiche les contenus d'<a href="https://arretsurimages.net/">Arrêt sur images</a> d'une manière optimisé sur mobile. Il est <a href="https://github.com/francois2metz/asilite">open-source</a> et n'est pas affilié à <a href="https://arretsurimages.net/">Arrêt sur images</a>. Créé par <a href="http://twitter.com/francois2metz">@francois2metz</a>.</p>
+        <p>Ce site <a href="https://github.com/francois2metz/asilite">open-source</a> affiche les contenus d'<a href="https://arretsurimages.net/">Arrêt sur images</a> d'une manière optimisé sur mobile. Non affilié à <a href="https://arretsurimages.net/">Arrêt sur images</a>. Créé par <a href="http://twitter.com/francois2metz">@francois2metz</a>. Voici la <a href="/api.html">documentation de l'API</a>.</p>
       </footer>
 
     </div> <!-- /container -->
