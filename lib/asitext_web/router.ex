@@ -51,5 +51,6 @@ defmodule AsitextWeb.Router do
     get "/blogs/:slug", PageController, :blog
     get "/:type/", PageController, :type
     get "/:type/:slug", PageController, :show
+    get "/:type/:slug/comments", PageController, :comments
   end
 end

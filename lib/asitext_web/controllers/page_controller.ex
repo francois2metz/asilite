@@ -36,6 +36,12 @@ defmodule AsitextWeb.PageController do
     render conn, "show.html", article: response.body, title: title, lead: lead, content: content, current_url: current_url(conn)
   end
 
+  def comments(conn, %{"type" => type, "slug" => slug}) do
+    {conn, response} = get_asi(conn, "contents/" <> type <> "/" <> slug <> "/comments")
+
+    render conn, "comments.html", title: "Commentaires", comments: response.body
+  end
+
   def authors(conn, _params) do
     {conn, authors} = get_asi(conn, "authors", %{}, ["Range": "object 0-9998"])
 

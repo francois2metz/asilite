@@ -9,6 +9,7 @@
     <%= for theme <- @article["themes"] do  %>
       - <a href="<%= page_path(@conn, :theme, theme["slug"]) %>"><%= theme["name"] %></a>
     <% end %>
+    - <a href="/<%= @article["path"] %>/comments"><%= @article["comment_number"] %> commentaires</a>
   </span>
   <h2><%= title_cleanup(@article["subtitle"]) %></h2>
   <%= if Map.has_key?(@article, "associated_video")

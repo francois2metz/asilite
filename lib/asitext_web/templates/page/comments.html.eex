@@ -1,0 +1,7 @@
+<ul class="list-unstyled">
+  <%= for comment <- @comments do %>
+    <li>
+      <p><strong><%= raw comment["author"]["nickname"] %></strong> <br> <%= raw comment["message"] %></p>
+    </li>
+  <% end %>
+</ul>
