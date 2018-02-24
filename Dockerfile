@@ -9,7 +9,12 @@ COPY assets/package.json assets/
 RUN cd assets && \
     npm install
 
+RUN npm install -g raml2html
+
 COPY . .
+
+
+RUN raml2html api.raml > assets/static/api.html
 
 RUN cd assets/ && \
     npm run deploy && \
