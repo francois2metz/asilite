@@ -1,7 +1,13 @@
 <ul class="list-unstyled">
   <%= for comment <- @comments do %>
     <li>
-      <p><strong><%= raw comment["author"]["nickname"] %></strong> <br> <%= raw comment["message"] %></p>
+      <p>
+        <strong><%= raw comment["author"]["nickname"] %></strong>
+        <% date = Timex.parse!(comment["created_at"], "{ISO:Extended}") %>
+        <time datetime="<%= comment["created_at"] %>"><%= Timex.format!(date, "{D} {Mfull} {YYYY} à {h24}:{m}") %></time>
+        <br>
+        <%= raw comment["message"] %>
+      </p>
     </li>
   <% end %>
 </ul>
