@@ -19,8 +19,11 @@
       <iframe src="<%= @article["associated_video"]["metas"]["embed_url"] %>" allowfullscreen></iframe>
     </div>
     <br>
-    <a href="<%= @article["associated_video"]["video_download_link"] %>">Télécharger la video</a>
-    <br>
+    <%= if Map.has_key?(@article, "video_download_link") do %>
+      <a href="<%= @article["video_download_link"] %>">Télécharger la video</a>
+      <br>
+      <br>
+    <% end %>
   <% end %>
 
   <p><strong><%= raw @lead %></strong></p>
