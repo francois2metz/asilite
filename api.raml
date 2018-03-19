@@ -449,10 +449,10 @@ types:
         required: true
         type: string
       subtitle:
-        required: true
+        required: false
         type: string
       tease:
-        required: true
+        required: false
         type: string
       content:
         required: false
@@ -465,6 +465,18 @@ types:
         type: Themes
       is_elected:
         required: true
+        type: boolean
+      is_reference:
+        required: false
+        type: boolean
+      is_essential:
+        required: false
+        type: boolean
+      is_commentable:
+        required: false
+        type: boolean
+      is_vote_for_free_activated:
+        required: false
         type: boolean
       access_level:
         required: true
@@ -499,6 +511,12 @@ types:
       comment_number:
         required: false
         type: integer
+      audio_download_link:
+        required: false
+        type: string
+      video_download_link:
+        required: false
+        type: string
     example: |
       {
         "thumbnail": {
