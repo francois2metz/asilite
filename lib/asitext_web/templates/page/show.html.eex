@@ -29,6 +29,7 @@
   <p><strong><%= raw @lead %></strong></p>
   <%= raw @content %>
 </article>
+<p><a href="https://beta.arretsurimages.net/<%= @article["path"] %>">Lire sur beta.arretsurimages.net.</a></p>
 <%= unless (@conn.assigns[:logged] || @article["access_level"] == "free") do %>
   <div class="panel panel-warning">
     <div class="panel-heading">
