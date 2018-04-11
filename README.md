@@ -1,6 +1,6 @@
 # ASI Lite
 
-This is designed as a fast and simple alternative to https://beta.arretsurimages.net/ for mobile devices.
+This is designed as a fast and simple alternative to https://www.arretsurimages.net/ for mobile devices.
 
 Minimal javascript is used.
 

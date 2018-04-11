@@ -46,7 +46,7 @@ defmodule Asi do
     [
       "User-Agent": "asilite - be nice don't block me",
       "Content-Type": "application/json",
-      "Referer": "https://beta.arretsurimages.net/",
+      "Referer": "https://www.arretsurimages.net/",
     ]
   end
 
