@@ -1,8 +1,13 @@
 defmodule Asi.HTMLTest do
   use ExUnit.Case, async: true
 
-  test "rewrite links new" do
+  test "rewrite links from the beta" do
     html = ~s(<div><a href="https://beta.arretsurimages.net/articles/france-bleu">test</a></div>)
+    assert Asi.HTML.rewrite_html(html, fn -> :ok end) == ~s(<div><a href="/articles/france-bleu">test</a></div>)
+  end
+
+  test "rewrite link from the new site" do
+    html = ~s(<div><a href="https://www.arretsurimages.net/articles/france-bleu">test</a></div>)
     assert Asi.HTML.rewrite_html(html, fn -> :ok end) == ~s(<div><a href="/articles/france-bleu">test</a></div>)
   end
 

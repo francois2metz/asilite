@@ -84,8 +84,8 @@ defmodule Asi.HTML do
     href
     |> String.replace(~r/^\/([^\/]+)\/[0-9-]+\/(.+)/, "/\\1/\\2")
     |> String.replace(~r/^\/([^\/]+)\/(.+)-id[0-9]+/, "/\\1/\\2")
-    |> String.replace(~r/https:\/\/beta.arretsurimages.net\/([^\/]+)\/[0-9-]+\/(.+)/, "/\\1/\\2")
-    |> String.replace(~r/https:\/\/beta.arretsurimages.net\/([^\/]+)\/([^\/]+)/, "/\\1/\\2")
+    |> String.replace(~r/https:\/\/(beta|www).arretsurimages.net\/([^\/]+)\/[0-9-]+\/(.+)/, "/\\2/\\3")
+    |> String.replace(~r/https:\/\/(beta|www).arretsurimages.net\/([^\/]+)\/([^\/]+)/, "/\\2/\\3")
     |> String.replace(~r/^\/breves\/(.+)/, "/articles/\\1")
     |> String.replace(~r/-l-([a-zA-Z]+)/, "-l\\1")
     |> String.replace(~r/-d-([a-zA-Z]+)/, "-d\\1")
