@@ -95,4 +95,9 @@ defmodule Asi.HTMLTest do
     html = ~s(<div><read-more type="content" slug="test">Content</read-more></div>)
     assert Asi.HTML.rewrite_html(html, fn _ -> :ok end) == ~s(<div><div></div></div>)
   end
+
+  test "remove style tag (workaround floki bug)" do
+    html = ~s(<style><!-- /* Font Definitions */ --></style>)
+    assert Asi.HTML.rewrite_html(html, fn -> :ok end) == ~s(<style></style>)
+  end
 end

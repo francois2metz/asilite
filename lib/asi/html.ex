@@ -76,6 +76,10 @@ defmodule Asi.HTML do
     }
   end
 
+  defp rewrite_tag({"style", _, _}, _) do
+    {"style", [], []}
+  end
+
   defp rewrite_tag(other, _) do
     other
   end
