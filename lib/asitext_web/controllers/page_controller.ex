@@ -186,7 +186,7 @@ defmodule AsitextWeb.PageController do
   def set_csp(conn, _) do
     [nonce] = get_resp_header(conn, "x-request-id")
     conn
-    |> put_resp_header("Content-Security-Policy", "script-src 'self' https://www.google-analytics.com/ 'nonce-"<> nonce <>"'; style-src 'self';")
+    |> put_resp_header("Content-Security-Policy", "script-src 'self' https://www.google-analytics.com/ 'nonce-"<> nonce <>"'; style-src 'self' https://fonts.googleapis.com;")
     |> assign(:nonce, nonce)
   end
 
