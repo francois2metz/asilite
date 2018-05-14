@@ -1,6 +1,6 @@
 <div class="article">
-  <h1 class="page-header"><%= title_cleanup(@blog["title"]) %></h1>
-  <p><%= title_cleanup(@blog["description"]) %></p>
+  <h1 class="page-header"><%= title_cleanup(@chronicle["title"]) %></h1>
+  <p><%= title_cleanup(@chronicle["description"]) %></p>
 </div>
 <%= render "list_article.html", results: @results, conn: @conn %>
 <%= render "pager.html", start: @start, total: @total %>

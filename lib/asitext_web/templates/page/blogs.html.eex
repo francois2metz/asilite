@@ -1,8 +1,0 @@
-<ol class="list-unstyled">
-  <%= for blog <- @blogs do %>
-    <li class="article">
-      <h1 class="h3"><a href="<%= page_path(@conn, :blog, blog["slug"]) %>"><%= blog["title"] %></a></h1>
-    </li>
-  <% end %>
-</ol>
-<%= render "pager.html", start: @start, total: @total %>
