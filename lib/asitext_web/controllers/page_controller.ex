@@ -96,12 +96,18 @@ defmodule AsitextWeb.PageController do
   end
 
   def chronicle(conn, %{"slug" => slug} = params) do
-    start            = Map.get(params, "start", "0")
-    {conn, chronicle}= get_asi(conn, "blogs/" <> slug)
-    {conn, response} = get_asi(conn, "blogs/"<> slug <>"/contents", %{}, ["Range": format_range(start)])
-    total            = range_to_total(response)
+    try do
+      start             = Map.get(params, "start", "0")
+      {conn, chronicle} = get_asi(conn, "blogs/" <> slug)
+      {conn, response}  = get_asi(conn, "blogs/"<> slug <>"/contents", %{}, ["Range": format_range(start)])
+      total             = range_to_total(response)
 
-    render conn, "chronicle.html", title: chronicle.body["title"], results: response.body, start: start, chronicle: chronicle.body, total: total
+      render conn, "chronicle.html", title: chronicle.body["title"], results: response.body, start: start, chronicle: chronicle.body, total: total
+    rescue
+      Asi.NotFound ->
+        {conn, response} = get_asi(conn, "contents/chroniques/" <> slug)
+        redirect(conn, to: "/" <> response.body["path"])
+    end
   end
 
   def login(conn, _params) do
@@ -164,6 +170,14 @@ defmodule AsitextWeb.PageController do
     {conn, response} = get_asi(conn, "search", %{"author" => slug})
 
     render conn, "atom.xml", title: slug, results: response.body, current_url: current_url(conn)
+  end
+
+  def redirect_blogs(conn, _) do
+    redirect(conn, to: page_path(conn, :chronicles))
+  end
+
+  def redirect_blog(conn, %{"slug" => slug}) do
+    redirect(conn, to: page_path(conn, :chronicle, slug))
   end
 
   def format_range(start) do
