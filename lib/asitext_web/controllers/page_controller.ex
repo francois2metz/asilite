@@ -33,6 +33,12 @@ defmodule AsitextWeb.PageController do
     lead            = Asi.HTML.rewrite_html(response.body["lead"], fetch_content)
     content         = Asi.HTML.rewrite_html(response.body["content"], fetch_content)
 
+    unless "/" <> response.body["path"] == current_path(conn) do
+      conn
+      |> redirect(to: "/" <> response.body["path"])
+      |> halt()
+    end
+
     render conn, "show.html", article: response.body, title: title, lead: lead, content: content, current_url: current_url(conn)
   end
 
