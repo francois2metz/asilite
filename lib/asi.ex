@@ -11,7 +11,7 @@ defmodule Asi do
   end
   defmodule Error do
     @moduledoc """
-    Exception raised when a 404 is returned
+    Exception raised when a 500 is returned
     """
     defexception plug_status: 500, message: "Error", conn: nil, router: nil
 
