@@ -74,7 +74,6 @@
         <p>
           <a href="<%= page_path(@conn, :folders) %>">Dossiers</a> -
           <a href="<%= page_path(@conn, :themes) %>">Thèmes</a> -
-          <a href="<%= page_path(@conn, :chronicles) %>">Chroniques</a> -
           <a href="<%= page_path(@conn, :authors) %>">Auteurs</a>
         </p>
         <p>Ce site <a href="https://github.com/francois2metz/asilite">open-source</a> affiche les contenus d'<a href="https://arretsurimages.net/">Arrêt sur images</a> d'une manière optimisé sur mobile. Non affilié à <a href="https://arretsurimages.net/">Arrêt sur images</a>. Créé par <a href="http://twitter.com/francois2metz">@francois2metz</a>. Voici la <a href="/api.html">documentation de l'API</a>.</p>
