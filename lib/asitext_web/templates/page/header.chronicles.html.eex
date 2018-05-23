@@ -1,0 +1,3 @@
+<%= for chronicle <- @chronicles do %>
+  <link href="<%= page_path(@conn, :atom_chronicles, chronicle["slug"]) %>" rel="alternate" title="<%= chronicle["title"] %>" type="application/atom+xml">
+<% end %>
