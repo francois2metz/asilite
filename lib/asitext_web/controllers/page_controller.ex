@@ -178,6 +178,12 @@ defmodule AsitextWeb.PageController do
     render conn, "atom.xml", title: slug, results: response.body, current_url: current_url(conn)
   end
 
+  def atom_chronicles(conn, %{"slug" => slug}) do
+    {conn, response}  = get_asi(conn, "blogs/"<> slug <>"/contents", %{})
+
+    render conn, "atom_chronicles.xml", title: slug, results: response.body, current_url: current_url(conn)
+  end
+
   def redirect_blogs(conn, _) do
     redirect(conn, to: page_path(conn, :chronicles))
   end
