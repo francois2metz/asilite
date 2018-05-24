@@ -59,7 +59,7 @@ defmodule AsitextWeb.PageController do
     {conn, author}   = get_asi(conn, "authors/" <> slug)
     {conn, response} = get_asi(conn, "search", %{"author" => slug}, ["Range": format_range(start)])
 
-    render conn, "searchresult.html", title: author.body["name"], results: response.body, start: start
+    render conn, "searchresult.html", title: author.body["name"], author: author.body, results: response.body, start: start, header_template: "author.html"
   end
 
   def themes(conn, _params) do
