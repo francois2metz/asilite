@@ -73,7 +73,7 @@ defmodule AsitextWeb.PageController do
     {conn, theme}    = get_asi(conn, "themes/" <> slug)
     {conn, response} = get_asi(conn, "search", %{"theme" => slug}, ["Range": format_range(start)])
 
-    render conn, "searchresult.html", title: theme.body["name"], results: response.body, start: start
+    render conn, "searchresult.html", title: theme.body["name"], results: response.body, start: start, theme: theme.body, header_template: "theme.html"
   end
 
   def folders(conn, params) do
