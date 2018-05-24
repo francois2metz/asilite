@@ -156,32 +156,32 @@ defmodule AsitextWeb.PageController do
   def atom(conn, _params) do
     {conn, response} = get_asi(conn, "search")
 
-    render conn, "atom.xml", title: "Tout les contenus", results: response.body, current_url: current_url(conn)
+    render conn, "atom.xml", title: "Tout les contenus", results: response.body["hits"]["hits"], current_url: current_url(conn)
   end
 
   def atom_type(conn, %{"type" => type}) do
     format           = type_to_format(type)
     {conn, response} = get_asi(conn, "search", %{"format" => format})
 
-    render conn, "atom.xml", title: String.capitalize(type), results: response.body, current_url: current_url(conn)
+    render conn, "atom.xml", title: String.capitalize(type), results: response.body["hits"]["hits"], current_url: current_url(conn)
   end
 
   def atom_themes(conn, %{"slug" => slug}) do
     {conn, response} = get_asi(conn, "search", %{"theme" => slug})
 
-    render conn, "atom.xml", title: slug, results: response.body, current_url: current_url(conn)
+    render conn, "atom.xml", title: slug, results: response.body["hits"]["hits"], current_url: current_url(conn)
   end
 
   def atom_authors(conn, %{"slug" => slug}) do
     {conn, response} = get_asi(conn, "search", %{"author" => slug})
 
-    render conn, "atom.xml", title: slug, results: response.body, current_url: current_url(conn)
+    render conn, "atom.xml", title: slug, results: response.body["hits"]["hits"], current_url: current_url(conn)
   end
 
   def atom_chronicles(conn, %{"slug" => slug}) do
     {conn, response}  = get_asi(conn, "blogs/"<> slug <>"/contents", %{})
 
-    render conn, "atom_chronicles.xml", title: slug, results: response.body, current_url: current_url(conn)
+    render conn, "atom.xml", title: slug, results: response.body, current_url: current_url(conn)
   end
 
   def redirect_blogs(conn, _) do

@@ -5,14 +5,14 @@
   <link href="<%= @current_url %>" rel="self" />
   <link href="https://asi.2metz.fr/" />
   <id>https://asi.2metz.fr/</id>
-  <updated><%= List.first(@results["hits"]["hits"])["updated_at"] %></updated>
+  <updated><%= List.first(@results)["updated_at"] %></updated>
   <author>
     <name>Arret sur images</name>
     <uri>https://arretsurimages.net/</uri>
   </author>
   <icon>https://asi.2metz.fr<%= static_path(@conn, "/images/favicon.png") %></icon>
 
-  <%= for hit <- @results["hits"]["hits"] do %>
+  <%= for hit <- @results do %>
     <entry>
       <title><%= title_cleanup(hit["title"]) %></title>
       <link rel="alternate" type="text/html" href="https://asi.2metz.fr/<%= hit["path"] %>"/>
