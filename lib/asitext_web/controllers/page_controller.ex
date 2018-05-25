@@ -98,7 +98,7 @@ defmodule AsitextWeb.PageController do
     {conn, response} = get_asi(conn, "blogs", %{}, ["Range": format_range(start)])
     total            = range_to_total(response)
 
-    render conn, "chronicles.html", title: "Chroniques", chronicles: response.body, start: start, total: total
+    render conn, "chronicles.html", title: "Chroniques", chronicles: response.body, start: start, total: total, type: "chroniques"
   end
 
   def chronicle(conn, %{"slug" => slug} = params) do
