@@ -24,6 +24,10 @@ defmodule AsitextWeb.PageController do
   end
 
   def show(conn, %{"type" => type, "slug" => slug}) do
+    {slug, format, suffix} = case String.ends_with? slug, ".json" do
+                               true -> {String.replace_suffix(slug, ".json", ""), "json", ".json"}
+                               false -> {slug, "html", ""}
+                             end
     {conn, response} = get_asi(conn, "contents/" <> type <> "/" <> slug)
     title            = response.body["title"]
     fetch_content    = fn slug ->
@@ -33,13 +37,13 @@ defmodule AsitextWeb.PageController do
     lead            = Asi.HTML.rewrite_html(response.body["lead"], fetch_content)
     content         = Asi.HTML.rewrite_html(response.body["content"], fetch_content)
 
-    unless "/" <> response.body["path"] == current_path(conn) do
+    unless "/" <> response.body["path"] <> suffix == current_path(conn) do
       conn
       |> redirect(to: "/" <> response.body["path"])
       |> halt()
     end
 
-    render conn, "show.html", article: response.body, title: title, lead: lead, content: content, current_url: current_url(conn)
+    render conn, "show."<> format, article: response.body, title: title, lead: lead, content: content, current_url: current_url(conn)
   end
 
   def comments(conn, %{"type" => type, "slug" => slug}) do

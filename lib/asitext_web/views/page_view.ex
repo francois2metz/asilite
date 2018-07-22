@@ -6,4 +6,8 @@ defmodule AsitextWeb.PageView do
   def title_cleanup(title) do
     String.replace(title, "&nbsp;", " ")
   end
+
+  def render("show.json", %{article: article}) do
+    article
+  end
 end
