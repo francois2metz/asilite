@@ -23,7 +23,12 @@
     </div>
     <br>
     <%= if Map.has_key?(@article, "video_download_link") do %>
-      <a href="<%= @article["video_download_link"] %>">Télécharger la video</a>
+      <a href="<%= download_link(@article["video_download_link"]) %>">Télécharger la video</a>
+      <br>
+      <br>
+    <% end %>
+    <%= if Map.has_key?(@article, "audio_download_link") do %>
+      <a href="<%= download_link(@article["audio_download_link"]) %>">Télécharger la version audio</a>
       <br>
       <br>
     <% end %>
