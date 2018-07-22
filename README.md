@@ -38,7 +38,7 @@ It will run the server and expose it on the 4000 port: http://localhost:4000
 
 On production:
 
-1. Create the config/prod.secret.exs file with the following content
+1. Create the `config/prod.secret.exs` file with the following content
 
 ```elixir
 use Mix.Config
