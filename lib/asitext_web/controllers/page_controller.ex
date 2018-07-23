@@ -115,8 +115,7 @@ defmodule AsitextWeb.PageController do
       render conn, "chronicle.html", title: chronicle.body["title"], results: response.body, start: start, chronicle: chronicle.body, total: total
     rescue
       Asi.NotFound ->
-        {conn, response} = get_asi(conn, "contents/chroniques/" <> slug)
-        redirect(conn, to: "/" <> response.body["path"])
+        show(conn, %{"type" => "chroniques", "slug" => slug})
     end
   end
 
