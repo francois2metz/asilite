@@ -44,6 +44,7 @@ defmodule Asitext.Mixfile do
       {:basic_auth, "~> 2.2.2"},
       {:floki, "~> 0.20.0"},
       {:distillery, "~> 1.5", runtime: false},
+      {:rollbax, "~> 0.9"},
     ]
   end
 end

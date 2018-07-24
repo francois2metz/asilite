@@ -1,5 +1,6 @@
 defmodule AsitextWeb.Router do
   use AsitextWeb, :router
+  use Plug.ErrorHandler
 
   pipeline :browser do
     plug :accepts, ["html", "json"]
@@ -60,5 +61,31 @@ defmodule AsitextWeb.Router do
     get "/:type/:slug/comments", PageController, :comments
     get "/:type/:list/:slug", PageController, :show
     get "/:type/:list/:slug/comments", PageController, :comments
+  end
+
+  defp handle_errors(conn, %{kind: kind, reason: reason, stack: stacktrace}) do
+    conn = conn
+    |> Plug.Conn.fetch_query_params()
+
+    params =
+    for {key, _value} = tuple <- conn.params, into: %{} do
+      if key in ["password", "password_confirmation"] do
+        {key, "[FILTERED]"}
+      else
+        tuple
+      end
+    end
+
+    occurrence_data = %{
+      "request" => %{
+        "url" => "#{conn.scheme}://#{conn.host}:#{conn.port}#{conn.request_path}",
+        "user_ip" => List.to_string(:inet.ntoa(conn.remote_ip)),
+        "headers" => Enum.into(conn.req_headers, %{}),
+        "method" => conn.method,
+        "params" => params,
+      }
+    }
+
+    Rollbax.report(kind, reason, stacktrace, _custom_data = %{}, occurrence_data)
   end
 end
