@@ -38,13 +38,44 @@ It will run the server and expose it on the 4000 port: http://localhost:4000
 
 On production:
 
-1. Create the `config/prod.secret.exs` file with the following content
+1. Create the `config/prod.secret.exs` file with the minimal following content
 
-```elixir
-use Mix.Config
-config :asitext, AsitextWeb.Endpoint,
-  secret_key_base: "YOURSECRETKEYBASE"
-```
+       ```elixir
+       use Mix.Config
+       config :asitext, AsitextWeb.Endpoint,
+         secret_key_base: "YOURSECRETKEYBASE"
+       ```
+
+   To enable hsts and host your instance behind a reverse proxy
+
+       ```elixir
+       use Mix.Config
+       config :asitext, AsitextWeb.Endpoint,
+         secret_key_base: "YOURSECRETKEYBASE"
+         force_ssl: [
+           hsts: true,
+           rewrite_on: [:x_forwarded_proto]
+         ]
+       ```
+
+  To enable [Rollbar][] error tracking, add the following config:
+
+       ```elixir
+       config :rollbax,
+         enabled: true,
+         access_token: "YOURACCESSTOKEN",
+         environment: "production"
+       ```
+
+  To protect the `/login` endpoint with basic auth, add the following content:
+
+       ```elixir
+       config :asitext, :basic_auth, [
+         username: "YOURUSERNAME",
+         password: "YOURPASSWORD",
+         realm: "Caution"
+       ]
+       ```
 
 1. Build the image: `docker build --tag asi .`
 1. Run it: `docker run --publish 4000:4000 asi`
@@ -66,3 +97,5 @@ Thanks to the team at arretsurimages for the API. I disagree with the choice of 
 (c) 2018 François de Metz
 
 MIT
+
+[Rollbar]: https://rollbar.com/
