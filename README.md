@@ -80,6 +80,12 @@ On production:
 1. Build the image: `docker build --tag asi .`
 1. Run it: `docker run --publish 4000:4000 asi`
 
+## Tests
+
+Run:
+
+    ./script/test
+
 ## API bugs
 
 Here is the list of unexpected behavior of the API:
