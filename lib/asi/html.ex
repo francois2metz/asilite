@@ -58,7 +58,10 @@ defmodule Asi.HTML do
   defp rewrite_tag({"asi-video", attributes, _rest}, fetch_content) do
     {attributes, slug} = without_key(attributes, "slug")
     response = fetch_content.(slug)
-    embed_url = response.body["metas"]["embed_url"]
+    embed_url = case response.body["metas"]["embed_url"] do
+                  nil -> response.body["oembed"]["html"] |> Floki.attribute("src") |> List.first
+                  v -> v
+                end
     {
       "div",
       [{"class", "embed-responsive embed-responsive-16by9"}],

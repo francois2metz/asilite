@@ -81,6 +81,12 @@ defmodule Asi.HTMLTest do
     assert Asi.HTML.rewrite_html(html, fn _ -> %{body: %{"metas" => %{"embed_url" => "https://exemple.net/my-video"}}} end) == ~s(<div><div class="embed-responsive embed-responsive-16by9"><iframe src="https://exemple.net/my-video" allowfullscreen="true" class="no-remove"></iframe></div></div>)
   end
 
+  test "rewrite asi-video to use iframe for dailymotion videos" do
+    body = %{"oembed" => %{"author_name" => "Arrêt sur Images", "author_url" => "https://www.dailymotion.com/asi", "description" => "", "height" => 269, "html" => "<iframe frameborder=\"0\" width=\"480\" height=\"269\" src=\"https://www.dailymotion.com/embed/video/plopplop\" allowfullscreen allow=\"autoplay\"></iframe>", "newId" => "dfdsfdsfsf", "provider_name" => "Dailymotion", "provider_url" => "https://www.dailymotion.com", "thumbnail_height" => 240, "thumbnail_url" => "https://s1-ssl.dmcdn.net/oy9zQ/x240-X7e.jpg", "thumbnail_width" => 427, "title" => "aliinterviewparisien", "type" => "video", "version" => "1.0", "width" => 480}}
+    html = ~s(<div><asi-video class="no-remove" slug="my-video">Content</asi-video></div>)
+    assert Asi.HTML.rewrite_html(html, fn _ -> %{body: body} end) == ~s(<div><div class="embed-responsive embed-responsive-16by9"><iframe src="https://www.dailymotion.com/embed/video/plopplop" allowfullscreen="true" class="no-remove"></iframe></div></div>)
+  end
+
   test "rewrite asi-citation to a div" do
     html = ~s(<div><asi-citation class="no-remove">Content</asi-citation></div>)
     assert Asi.HTML.rewrite_html(html, fn _ -> :ok end) == ~s(<div><div class="citation no-remove">Content</div></div>)
