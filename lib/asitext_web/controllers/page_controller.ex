@@ -119,6 +119,13 @@ defmodule AsitextWeb.PageController do
     end
   end
 
+  def find_and_redirect(conn, _params) do
+    response = HTTPotion.get "https://www.arretsurimages.net"<> current_path(conn)
+    url = String.replace_prefix(response.headers["location"], "https://www.arretsurimages.net", "")
+    conn
+    |> redirect(to: url)
+  end
+
   def login(conn, _params) do
     render conn, "login.html", title: "Connexion"
   end

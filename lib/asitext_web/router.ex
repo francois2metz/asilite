@@ -39,6 +39,13 @@ defmodule AsitextWeb.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
+
+    # old routes of the arretsurimages site
+    get "/contenu.php", PageController, :find_and_redirect
+    get "/vite.php", PageController, :find_and_redirect
+    get "/dossier.php", PageController, :find_and_redirect
+
+    # Normal routes
     get "/login", PageController, :login
     post "/login", PageController, :log
     post "/logout", PageController, :logout
