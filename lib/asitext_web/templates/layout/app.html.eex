@@ -65,10 +65,11 @@
       <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
       <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
       <%= unless (@conn.assigns[:logged]) do %>
-      <p class="alert alert-info" role="alert">Pour accéder à la totalité du contenu vous devez vous connecter avec vos identifiants à Arrêt sur Images.
-        <br>
-        Pour des raisons de sécurité cet accès est restreint pour le moment. Demandez la procédure à <a href="https://twitter.com/francois2metz">l'auteur, François</a>.</p>
-        <% end %>
+        <p class="alert alert-info" role="alert">Pour accéder à la totalité du contenu vous devez vous connecter avec vos identifiants à Arrêt sur Images.
+          <br>
+          Pour des raisons de sécurité cet accès est restreint pour le moment. Demandez la procédure à <a href="https://twitter.com/francois2metz">l'auteur, François</a>.
+        </p>
+      <% end %>
 
       <main>
         <%= render @view_module, @view_template, assigns %>
