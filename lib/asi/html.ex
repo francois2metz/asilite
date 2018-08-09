@@ -89,15 +89,10 @@ defmodule Asi.HTML do
 
   defp rewrite_href(href) do
     href
-    |> String.replace(~r/^\/([^\/]+)\/[0-9-]+\/(.+)/, "/\\1/\\2")
-    |> String.replace(~r/^\/([^\/]+)\/(.+)-id[0-9]+/, "/\\1/\\2")
+    |> String.replace(~r/^\/breves\/.+-id([0-9]+)/, "/vite.php?id=\\1")
+    |> String.replace(~r/^\/[^\/]+\/.+-id([0-9]+)/, "/contenu.php?id=\\1")
     |> String.replace(~r/https:\/\/(beta|www).arretsurimages.net\/([^\/]+)\/[0-9-]+\/(.+)/, "/\\2/\\3")
     |> String.replace(~r/https:\/\/(beta|www).arretsurimages.net\/([^\/]+)\/([^\/]+)/, "/\\2/\\3")
-    |> String.replace(~r/^\/breves\/(.+)/, "/articles/\\1")
-    |> String.replace(~r/-l-([a-zA-Z]+)/, "-l\\1")
-    |> String.replace(~r/-d-([a-zA-Z]+)/, "-d\\1")
-    |> String.replace(~r/-n-([a-zA-Z]+)/, "-n\\1")
-    |> String.replace(~r/-qu-([a-zA-Z]+)/, "-qu\\1")
   end
 
   defp without_key(list, key) do
