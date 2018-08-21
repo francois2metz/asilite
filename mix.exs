@@ -43,7 +43,7 @@ defmodule Asitext.Mixfile do
       {:timex, "~> 3.0"},
       {:basic_auth, "~> 2.2.2"},
       {:floki, "~> 0.20.0"},
-      {:distillery, "~> 1.5", runtime: false},
+      {:distillery, "~> 2.0"},
       {:rollbax, "~> 0.9"},
     ]
   end
