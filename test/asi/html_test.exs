@@ -26,6 +26,11 @@ defmodule Asi.HTMLTest do
     assert Asi.HTML.rewrite_html(html, fn -> :ok end) == ~s(<div><a href="/contenu.php?id=10318">test</a></div>)
   end
 
+  test "rewrite absolute links with fulll url and id" do
+    html = ~s(<div><a href="https://www.arretsurimages.net/chroniques/2017-11-13/Des-defonces-des-cretins-et-des-causalites-id10318">test</a></div>)
+    assert Asi.HTML.rewrite_html(html, fn -> :ok end) == ~s(<div><a href="/contenu.php?id=10318">test</a></div>)
+  end
+
   test "rewrite old breves links" do
     html = ~s(<div><a href="/breves/2017-06-14/Crowdfunding-anti-refugies-PayPal-gele-la-collecte-des-identitaires-id20689">test</a></div>)
     assert Asi.HTML.rewrite_html(html, fn -> :ok end) == ~s(<div><a href="/vite.php?id=20689">test</a></div>)
