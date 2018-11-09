@@ -1,6 +1,9 @@
 pipeline {
     agent {
-        docker 'bitwalker/alpine-elixir-phoenix:latest'
+        docker {
+            image 'bitwalker/alpine-elixir-phoenix:latest'
+            alwaysPull true
+        }
     }
 
     stages {
