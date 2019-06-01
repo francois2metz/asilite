@@ -21,7 +21,7 @@ RUN cd assets/ && \
     cd - && \
     mix do compile, phx.digest, release
 
-FROM alpine:3.7
+FROM alpine:3.9
 
 EXPOSE 4000
 ENV PORT=4000
