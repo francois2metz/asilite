@@ -1,4 +1,4 @@
-FROM bitwalker/alpine-elixir-phoenix:latest as builder
+FROM bitwalker/alpine-elixir-phoenix:1.8.1 as builder
 
 ENV MIX_ENV=prod
 
