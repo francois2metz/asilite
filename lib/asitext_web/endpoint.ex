@@ -7,7 +7,7 @@ defmodule AsitextWeb.Endpoint do
   # when deploying your static files in production.
   plug Plug.Static,
     at: "/", from: :asitext, gzip: true,
-    only: ~w(css fonts images js favicon.ico robots.txt bytics.min.js api.html)
+    only: ~w(css fonts images js favicon.ico robots.txt api.html)
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.

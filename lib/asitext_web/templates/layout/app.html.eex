@@ -12,12 +12,6 @@
     <%= for {type, name} <- nav_links() do %>
       <link href="<%= page_path(@conn, :atom_type, type) %>" rel="alternate" title="<%= name %>" type="application/atom+xml">
     <% end %>
-    <script nonce="<%= @conn.assigns[:nonce] %>">
-      !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Analytics.js snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=t;var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};
-      analytics.load("/bytics.min.js");
-      analytics.page();
-      }}();
-    </script>
     <%= render_existing @view_module, "header."<> @view_template, assigns %>
     <%= render_existing @view_module, "header."<> (assigns[:header_template] || ""), assigns %>
   </head>
@@ -95,6 +89,20 @@
       classChildren('toggle').addEventListener('click', function () {
           classChildren('collapse').classList.toggle('collapse');
       }, false);
+    </script>
+    <script nonce="<%= @conn.assigns[:nonce] %>" type="text/javascript">
+      var _gauges = _gauges || [];
+      (function() {
+        var t   = document.createElement('script');
+        t.type  = 'text/javascript';
+        t.async = true;
+        t.id    = 'gauges-tracker';
+        t.setAttribute('data-site-id', '5cf242ea7fc5fd56733b5055');
+        t.setAttribute('data-track-path', 'https://track.gaug.es/track.gif');
+        t.src = 'https://d2fuc4clr7gvcn.cloudfront.net/track.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(t, s);
+      })();
     </script>
   </body>
 </html>
