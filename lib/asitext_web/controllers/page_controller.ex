@@ -222,7 +222,7 @@ defmodule AsitextWeb.PageController do
   def set_csp(conn, _) do
     [nonce] = get_resp_header(conn, "x-request-id")
     conn
-    |> put_resp_header("Content-Security-Policy", "script-src 'self' https://d2fuc4clr7gvcn.cloudfront.net/track.js https://secure.gaug.es/ 'nonce-"<> nonce <>"'; style-src 'self' https://fonts.googleapis.com;")
+    |> put_resp_header("Content-Security-Policy", "script-src 'self' https://plausible.io/js/plausible.js 'nonce-"<> nonce <>"'; style-src 'self' https://fonts.googleapis.com;")
     |> assign(:nonce, nonce)
   end
 

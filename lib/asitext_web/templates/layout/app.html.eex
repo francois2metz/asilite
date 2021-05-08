@@ -14,6 +14,7 @@
     <% end %>
     <%= render_existing @view_module, "header."<> @view_template, assigns %>
     <%= render_existing @view_module, "header."<> (assigns[:header_template] || ""), assigns %>
+    <script async defer data-domain="asi.2metz.fr" src="https://plausible.io/js/plausible.js"></script>
   </head>
 
   <body>
@@ -89,20 +90,6 @@
       classChildren('toggle').addEventListener('click', function () {
           classChildren('collapse').classList.toggle('collapse');
       }, false);
-    </script>
-    <script nonce="<%= @conn.assigns[:nonce] %>" type="text/javascript">
-      var _gauges = _gauges || [];
-      (function() {
-        var t   = document.createElement('script');
-        t.type  = 'text/javascript';
-        t.async = true;
-        t.id    = 'gauges-tracker';
-        t.setAttribute('data-site-id', '5cf242ea7fc5fd56733b5055');
-        t.setAttribute('data-track-path', 'https://track.gaug.es/track.gif');
-        t.src = 'https://d2fuc4clr7gvcn.cloudfront.net/track.js';
-        var s = document.getElementsByTagName('script')[0];
-        s.parentNode.insertBefore(t, s);
-      })();
     </script>
   </body>
 </html>
