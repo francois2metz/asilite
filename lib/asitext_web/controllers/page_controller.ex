@@ -265,7 +265,7 @@ defmodule AsitextWeb.PageController do
           404 ->
             raise Asi.NotFound
           500 ->
-            raise Asi.NotFound
+            raise Asi.InternalServerError
           _ ->
             {conn, response}
         end

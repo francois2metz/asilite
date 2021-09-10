@@ -9,6 +9,16 @@ defmodule Asi do
       %NotFound{message: "not found"}
     end
   end
+  defmodule InternalServerError do
+    @moduledoc """
+    Exception raised when a 500 is returned
+    """
+    defexception plug_status: 500, message: "Internal server error", conn: nil, router: nil
+
+    def exception(_opts) do
+      %NotFound{message: "server error"}
+    end
+  end
   defmodule Error do
     @moduledoc """
     Exception raised when a 500 is returned
