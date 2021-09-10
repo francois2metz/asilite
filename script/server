@@ -2,6 +2,8 @@
 
 PHOENIX_IMAGE=bitwalker/alpine-elixir-phoenix:1.8.1
 
-docker run --rm --volume $(pwd):/code --workdir /code $PHOENIX_IMAGE sh -c "mix do deps.get"
-docker run --rm --volume $(pwd):/code --workdir /code $PHOENIX_IMAGE sh -c "cd assets && npm install"
-docker run --rm --interactive --tty --volume $(pwd):/code --publish 4000:4000 --workdir /code $PHOENIX_IMAGE sh -c "mix phx.server"
+DOCKER_RUN_ARGS="--rm --volume $(pwd):/code --workdir /code $PHOENIX_IMAGE"
+
+docker run $DOCKER_RUN_ARGS sh -c "mix do deps.get"
+docker run $DOCKER_RUN_ARGS sh -c "cd assets && npm install"
+docker run --interactive --tty --publish 4000:4000 $DOCKER_RUN_ARGS sh -c "mix phx.server"
