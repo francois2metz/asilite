@@ -15,13 +15,18 @@
     - <a href="/<%= @article["path"] %>/comments"><%= @article["comment_number"] %> commentaires</a>
   </span>
   <h2><%= title_cleanup(@article["subtitle"]) %></h2>
-  <%= if Map.has_key?(@article, "associated_video")
-      && Map.has_key?(@article["associated_video"], "metas")
-      && is_map(@article["associated_video"]["metas"]) do %>
-    <div class="embed-responsive embed-responsive-16by9">
-      <iframe src="<%= @article["associated_video"]["metas"]["embed_url"] %>" allowfullscreen></iframe>
-    </div>
-    <br>
+  <%= if Map.has_key?(@article, "associated_video") do %>
+    <%= if Map.has_key?(@article["associated_video"], "metas")
+          && is_map(@article["associated_video"]["metas"]) do %>
+      <div class="embed-responsive embed-responsive-16by9">
+        <iframe src="<%= @article["associated_video"]["metas"]["embed_url"] %>" allowfullscreen></iframe>
+      </div>
+      <br>
+    <% else %>
+      <a href="<%= @article["associated_video"]["reference_url"] %>">Voir la vidéo</a>
+      <br>
+      <br>
+    <% end %>
   <% end %>
   <%= if Map.has_key?(@article, "video_download_link") do %>
     <a href="<%= download_link(@article["video_download_link"]) %>">Télécharger la video</a>
